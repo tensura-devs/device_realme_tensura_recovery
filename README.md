@@ -1,10 +1,10 @@
 #  Recovery tree of Realme 10 4G
 
-It was announced & released on November 2022.
+Announced & Released: November 2022.
 
 ## Device specifications
 
-Basic   | Spec Sheet
+Component   | Specifications Sheet
 -------:|:-------------------------
 SoC     | Mediatek Helio G99 (MT6789) (6nm)
 CPU     | Octa-core (2x2.2 GHz Cortex-A76 & 6x2.0 GHz Cortex-A55)
@@ -36,13 +36,6 @@ Works:
 - [X] Fasbootd
 - [X] Flashing
 - [X] Vibrator
-
-# Building
-```bash
-source build/envsetup.sh
-lunch twrp_RMX3630-eng
-mka vendorbootimage
-```
 
 ## To use it:
 
