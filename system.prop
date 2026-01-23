@@ -14,3 +14,15 @@ ro.hardware.gatekeeper=trustonic
 # TEE
 ro.vendor.mtk_svp_on_mtee_support=2
 ro.vendor.mtk_trustonic_tee_support=1
+
+# Device
+ro.product.device=RMX3630
+ro.product.mod.device=neon
+
+# Platform
+ro.hardware=mt6789
+ro.mediatek.platform=MT6789
+
+# Root
+ro.debuggable=1
+ro.adb.secure=0
