@@ -6,7 +6,7 @@
 PRODUCT_RELEASE_NAME := RMX3630
 
 # Device path for OEM device tree
-DEVICE_PATH := device/realme/$(PRODUCT_RELEASE_NAME)
+DEVICE_PATH := device/oplus/ossi/$(PRODUCT_RELEASE_NAME)
 
 # Inherit from hardware-specific part of the product configuration
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
