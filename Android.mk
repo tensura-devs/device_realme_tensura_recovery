@@ -1,13 +1,9 @@
 #
-# Copyright (C) 2022 The LineageOS Project
-#
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (C) 2025 The TWRP Open Source Project
 #
 
 LOCAL_PATH := $(call my-dir)
 
-ifeq ($(TARGET_DEVICE), RMX3630)
-
+ifeq ($(TARGET_DEVICE),RE8DDCL1)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
-
 endif
