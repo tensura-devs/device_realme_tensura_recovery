@@ -1,0 +1,2 @@
+	export LC_ALL="C.UTF-8"
+ 	export ALLOW_MISSING_DEPENDENCIES=true
