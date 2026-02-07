@@ -104,7 +104,7 @@ PRODUCT_PACKAGES += \
 
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
-    libion
+    libion \
     android.hardware.keymaster@4.1
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
