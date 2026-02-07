@@ -88,11 +88,18 @@ BOARD_USES_METADATA_PARTITION := true
 BOARD_SUPER_PARTITION_SIZE := 0x220000000
 BOARD_SUPER_PARTITION_GROUPS := main_dynamic_partitions
 BOARD_MAIN_DYNAMIC_PARTITIONS_SIZE := 0x220000000
-BOARD_MAIN_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product odm vendor_dlkm odm_dlkm
 TARGET_COPY_OUT_ODM := odm
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM := system
 TARGET_COPY_OUT_VENDOR := vendor
+BOARD_MAIN_DYNAMIC_PARTITION_LIST += \
+    odm \
+    odm_dlkm \
+    product \
+    system \
+    system_ext \
+    vendor \
+    vendor_dlkm
 
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
