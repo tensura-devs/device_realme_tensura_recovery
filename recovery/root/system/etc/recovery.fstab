@@ -7,7 +7,7 @@
 /vbmeta       emmc   /dev/block/by-name/vbmeta
 
 # ===============================
-# Metadata (WAJIB untuk FBE)
+# Metadata
 # ===============================
 /metadata     ext4   /dev/block/by-name/metadata
 
@@ -17,7 +17,7 @@
 /data         f2fs   /dev/block/by-name/userdata flags=encryptable=footer;fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption
 
 # ===============================
-# Dynamic partitions (IMAGE ONLY)
+# Dynamic partitions
 # ===============================
 system       ext4   /dev/block/mapper/system
 system       erofs  /dev/block/mapper/system
