@@ -20,7 +20,7 @@
 /super              emmc   /dev/block/by-name/super                        flags=backup=1;display="Super Image";flashimg=1
 
 #IMEI
-/nvram_image        emmc   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
+/nvram_image        auto   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
 /nvdata             ext4   /dev/block/by-name/nvdata                       flags=backup;subpartitionof=/nvram_image
 /nvcfg              ext4   /dev/block/by-name/nvcfg                        flags=backup;subpartitionof=/nvram_image
 /persist_image      emmc   /dev/block/by-name/persist                      flags=backup;subpartitionof=/nvram_image
