@@ -14,6 +14,8 @@ system_ext			                 /system_ext		    erofs		ro																	       
 system_ext			                 /system_ext		    ext4		ro																	                                                     	                        wait,slotselect,logical
 vendor_dlkm			                 /vendor_dlkm		    erofs		ro																	                                                     	                        wait,slotselect,logical
 vendor_dlkm			                 /vendor_dlkm		    ext4		ro																	                                                     	                        wait,slotselect,logical
+odm			                         /odm		            erofs   ro
+odm                              /odm		            ext4    ro
 odm_dlkm			                   /odm_dlkm		      erofs		ro																	                                                     	                        wait,slotselect,logical
 odm_dlkm			                   /odm_dlkm		      ext4		ro																	                                                     	                        wait,slotselect,logical
 
