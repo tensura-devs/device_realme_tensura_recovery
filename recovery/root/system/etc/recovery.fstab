@@ -14,20 +14,26 @@
 # ===============================
 # Data (FBE + INLINECRYPT)
 # ===============================
-/data f2fs /dev/block/by-name/userdata flags=encryptable=footer;fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption
+/data         f2fs /dev/block/by-name/userdata flags=encryptable=footer;fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption
 
 # ===============================
 # Dynamic partitions (IMAGE ONLY)
 # ===============================
-/system_image      emmc /dev/block/mapper/system
-/system_ext_image  emmc /dev/block/mapper/system_ext
-/vendor_image      emmc /dev/block/mapper/vendor
-/vendor_dlkm_image emmc /dev/block/mapper/vendor_dlkm
-/product_image     emmc /dev/block/mapper/product
-/odm_dlkm_image    emmc /dev/block/mapper/odm_dlkm
+system       ext4 /dev/block/mapper/system
+system       erofs /dev/block/mapper/system
+system_ext   ext4 /dev/block/mapper/system_ext
+system_ext   erofs /dev/block/mapper/system_ext
+vendor       ext4 /dev/block/mapper/vendor
+vendor       erofs /dev/block/mapper/vendor
+vendor_dlkm  ext4 /dev/block/mapper/vendor_dlkm
+vendor_dlkm  erofs /dev/block/mapper/vendor_dlkm
+product      ext4 /dev/block/mapper/product
+product      erofs /dev/block/mapper/product
+odm_dlkm_    ext4 /dev/block/mapper/odm_dlkm
+odm_dlkm_    erofs /dev/block/mapper/odm_dlkm
 
 # ===============================
 # External
 # ===============================
-/external_sd vfat /dev/block/mmcblk1p1
-/usb_otg     vfat /dev/block/sda1
+/external_sd  vfat /dev/block/mmcblk0p1
+/usb_otg      vfat /dev/block/sdd1
