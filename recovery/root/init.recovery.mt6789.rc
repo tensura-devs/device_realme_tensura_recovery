@@ -91,15 +91,6 @@ service health-hal-2-1 /system/bin/hw/android.hardware.health@2.1-service
     file /dev/kmsg w
     disabled
 
-# Keymaster 4.1 for decryption
-service keymaster-4-1 /vendor/bin/hw/android.hardware.keymaster@4.1-service.trustonic
-    interface android.hardware.keymaster@4.0::IKeymasterDevice default
-    interface android.hardware.keymaster@4.1::IKeymasterDevice default
-    class early_hal
-    user system
-    group system drmrpc
-    disabled
-
 # Gatekeeper for lock screen
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
