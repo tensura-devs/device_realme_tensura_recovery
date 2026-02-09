@@ -1,5 +1,5 @@
 on init
-    export ANDROID_ROOT /system_root
+    export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export ANDROID_STORAGE /storage
     export EXTERNAL_STORAGE /sdcard
