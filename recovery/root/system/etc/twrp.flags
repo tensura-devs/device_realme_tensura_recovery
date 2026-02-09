@@ -37,4 +37,4 @@
 /nvram              auto   /dev/block/by-name/nvram                        flags=display="Nvram"
 /persist            ext4   /dev/block/by-name/persist                      flags=display="Persist"
 /proinfo            auto   /dev/block/by-name/proinfo                      flags=display="Proinfo"
-/seccfg             auto   /dev/block/by-name/seccfg
+/seccfg             auto   /dev/block/by-name/seccfg                       flags=display="Seccfg"
