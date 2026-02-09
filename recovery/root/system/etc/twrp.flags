@@ -1,5 +1,11 @@
 #<src>              <type> <mnt_point>                                     <flags>
 
+# Core Partitions
+/boot               emmc   /dev/block/by-name/boot                        flags=backup=1;display="Boot Image";slotselect;flashimg=1
+/dtbo               emmc   /dev/block/by-name/dtbo                        flags=backup=1;display="Dtbo Image";slotselect;flashimg=1
+/vendor_boot        emmc   /dev/block/by-name/vendor_boot                 flags=backup=1;display="Vendor Boot Image";slotselect;flashimg=1
+/vbmeta             emmc   /dev/block/by-name/vbmeta                      flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
+
 # Dynamic Partitions
 /system_image       ext4   /dev/block/mapper/system                        flags=backup=1;display="System Image";slotselect;flashimg=1
 /system_image       erofs  /dev/block/mapper/system                        flags=backup=1;display="System Image";slotselect;flashimg=1
