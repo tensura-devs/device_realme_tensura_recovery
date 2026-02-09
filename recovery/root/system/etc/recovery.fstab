@@ -1,27 +1,57 @@
-# Android fstab file.
-# The filesystem that contains the filesystem checker binary (typically /system) cannot
-# specify MF_CHECK, and must come before any filesystems that do specify MF_CHECK
+# ===============================
+# Image partitions
+# ===============================
+/boot               emmc   /dev/block/by-name/boot           flags=display="Boot";slotselect;backup=1;flashimg=1
+/dtbo               emmc   /dev/block/by-name/dtbo           flags=display="Dtbo";slotselect;backup=1
+/lk1                emmc   /dev/block/by-name/lk1            flags=display="Bootloader1"
+/lk2                emmc   /dev/block/by-name/lk2            flags=display="Bootloader2"
+/logo               emmc   /dev/block/by-name/logo           flags=display="Logo";slotselect;backup=1
+/misc               emmc   /dev/block/by-name/misc           flags=display="Misc"
+/para               emmc   /dev/block/by-name/para           flags=display="Para"
+/persistent         emmc   /dev/block/by-name/frp            flags=display="Persistent"
+/vendor_boot        emmc   /dev/block/by-name/vendor_boot    flags=display="Vendor Boot";slotselect;backup=1;flashimg=1
+/vbmeta             emmc   /dev/block/by-name/vbmeta         flags=display="VBMeta";slotselect;flashimg=1
+/vbmeta_system      emmc   /dev/block/by-name/vbmeta_system  flags=display="VBMeta System";slotselect;backup=1;flashimg=1
+/vbmeta_vendor      emmc   /dev/block/by-name/vbmeta_vendor  flags=display="VBMeta Vendor";slotselect;backup=1;flashimg=1
 
-#<src>				                   <mnt_point>	     	<type>	<mnt_flags and options>							                                                                              <fs_mgr_flags>
-# Logical partitions
-system				                   /system		      	erofs		ro																	                                                                              wait,slotselect,logical
-system				                   /system			      ext4		ro																                                                                              	wait,slotselect,logical
-vendor				                   /vendor			      erofs		ro																	                                                     	                        wait,slotselect,logical
-vendor				                   /vendor			      ext4		ro																	                                                     	                        wait,slotselect,logical
-product				                   /product		        erofs		ro																	                                                     	                        wait,slotselect,logical
-product				                   /product		        ext4		ro																	                                                     	                        wait,slotselect,logical
-system_ext			                 /system_ext		    erofs		ro																	                                                     	                        wait,slotselect,logical
-system_ext			                 /system_ext		    ext4		ro																	                                                     	                        wait,slotselect,logical
-vendor_dlkm			                 /vendor_dlkm		    erofs		ro																	                                                     	                        wait,slotselect,logical
-vendor_dlkm			                 /vendor_dlkm		    ext4		ro																	                                                     	                        wait,slotselect,logical
-odm_dlkm			                   /odm_dlkm		      erofs		ro																	                                                     	                        wait,slotselect,logical
-odm_dlkm			                   /odm_dlkm		      ext4		ro																	                                                     	                        wait,slotselect,logical
+# ===============================
+# Metadata
+# ===============================
+/metadata           ext4   /dev/block/by-name/metadata       flags=display="Metadata";backup=1
 
-# Userdata partition
-/dev/block/by-name/metadata	     /metadata		      ext4		noatime,nosuid,nodev,discard				                                                     	                        wait,check,formattable
-/dev/block/by-name/userdata	     /data		          f2fs		noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt				wait,check,formattable,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
+# ===============================
+# Data
+# ===============================
+/data               f2fs   /dev/block/by-name/userdata       flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 
-# Need to have this entry in here even though the mount point itself is no longer needed.
-# The update_engine code looks for this entry in order to determine the boot device address
-# and fails if it does not find it.
-/dev/block/by-name/misc		       /misc			        emmc		defaults														                                                     	                        defaults
+# ===============================
+# Dynamic
+# ===============================
+/system_image       emmc   /dev/block/mapper/system          flags=backup=1;display="System Image";slotselect;flashimg=1
+/system_ext_image   emmc   /dev/block/mapper/system_ext      flags=backup=1;display="System_ext Image";slotselect;flashimg=1
+/vendor_image       emmc   /dev/block/mapper/vendor          flags=backup=1;display="Vendor Image";slotselect;flashimg=1
+/vendor_dlkm_image  emmc   /dev/block/mapper/vendor_dlkm     flags=backup=1;display="VendorDLKM Image";slotselect;flashimg=1
+/product_image      emmc   /dev/block/mapper/product         flags=backup=1;display="Product Image";slotselect;flashimg=1
+/odm_dlkm_image     emmc   /dev/block/mapper/odm_dlkm        flags=backup=1;display="OdmDLKM Image";slotselect;flashimg=1
+
+# ===============================
+# External
+# ===============================
+/external_sd        vfat   /dev/block/mmcblk1p1              flags=display="SDCard"
+/usb_otg            vfat   /dev/block/sda1                   flags=display="USB-OTG"
+
+# ===============================
+# IMEI
+# ===============================
+/nvram_image        emmc   /dev/block/by-name/nvram          flags=backup;display="IMEI"
+/nvdata             ext4   /dev/block/by-name/nvdata         flags=backup;subpartitionof=/nvram_image
+/nvcfg              ext4   /dev/block/by-name/nvcfg          flags=backup;subpartitionof=/nvram_image
+/persist_image      emmc   /dev/block/by-name/persist        flags=backup;subpartitionof=/nvram_image
+/protect1_image     emmc   /dev/block/by-name/protect1       flags=backup;subpartitionof=/nvram_image
+/protect2_image     emmc   /dev/block/by-name/protect2       flags=backup;subpartitionof=/nvram_image
+/proinfo_image      emmc   /dev/block/by-name/proinfo        flags=backup;subpartitionof=/nvram_image
+/seccfg_image       emmc   /dev/block/by-name/seccfg         flags=backup;subpartitionof=/nvram_image
+/nvram              auto   /dev/block/by-name/nvram          flags=display="Nvram"
+/persist            ext4   /dev/block/by-name/persist        flags=display="Persist"
+/proinfo            auto   /dev/block/by-name/proinfo        flags=display="Proinfo"
+/seccfg             auto   /dev/block/by-name/seccfg
