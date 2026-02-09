@@ -17,7 +17,6 @@
 /vendor_dlkm_image  erofs  /dev/block/mapper/vendor_dlkm                   flags=backup=1;display="VendorDLKM Image";slotselect;flashimg=1
 /product_image      ext4   /dev/block/mapper/product                       flags=backup=1;display="Product Image";slotselect;flashimg=1
 /product_image      erofs  /dev/block/mapper/product                       flags=backup=1;display="Product Image";slotselect;flashimg=1
-/odm                ext4   /dev/block/mapper/odm                           flags=backup=1;display="Odm Image";slotselect;flashimg=1
 /odm                erofs  /dev/block/mapper/odm                           flags=backup=1;display="Odm Image";slotselect;flashimg=1
 /odm_dlkm_image     ext4   /dev/block/mapper/odm_dlkm                      flags=backup=1;display="OdmDLKM Image";slotselect;flashimg=1
 /odm_dlkm_image     erofs  /dev/block/mapper/odm_dlkm                      flags=backup=1;display="OdmDLKM Image";slotselect;flashimg=1
