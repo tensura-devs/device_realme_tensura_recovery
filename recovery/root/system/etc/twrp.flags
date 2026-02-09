@@ -19,10 +19,6 @@
 # Super partition
 /super              emmc   /dev/block/by-name/super                        flags=backup=1;display="Super Image";flashimg=1
 
-# Removable Storage
-/external_sd        auto   /dev/block/mmcblk1p1 /dev/block/mmcblk0p1       flags=display="External_SDcard";storage;wipeingui;removable
-/usb_otg            auto   /dev/block/sda1 /dev/block/sda /dev/block/sdd1  flags=storage;wipeingui;removable
-
 #IMEI
 /nvram_image        emmc   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
 /nvdata             ext4   /dev/block/by-name/nvdata                       flags=backup;subpartitionof=/nvram_image
