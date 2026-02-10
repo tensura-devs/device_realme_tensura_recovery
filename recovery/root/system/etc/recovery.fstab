@@ -1,29 +1,29 @@
-#<src>                                 <mnt_point>         <type>     <mnt_flags>                                                                                                    <fs_mgr_flags>
+#<src>                                 <mnt_point>        <type>                                                                                                 <fs_mgr_flags>
 # ===============================
 # Dynamic Partitions
 # ===============================
-system                                 /system             ext4       ro
-system                                 /system             erofs      ro
-system_ext                             /system_ext         ext4       ro
-system_ext                             /system_ext         erofs      ro
-vendor                                 /vendor             ext4       ro
-vendor                                 /vendor             erofs      ro
-product                                /product            ext4       ro
-product                                /product            erofs      ro
-odm                                    /odm                ext4       ro
-odm                                    /odm                erofs      ro
-odm_dlkm                               /odm_dlkm           ext4       ro
-vendor_dlkm                            /vendor_dlkm        ext4       ro
+system                                 /system             ext4
+system                                 /system             erofs
+system_ext                             /system_ext         ext4
+system_ext                             /system_ext         erofs
+vendor                                 /vendor             ext4
+vendor                                 /vendor             erofs
+product                                /product            ext4
+product                                /product            erofs
+odm                                    /odm                ext4
+odm                                    /odm                erofs
+odm_dlkm                               /odm_dlkm           ext4
+vendor_dlkm                            /vendor_dlkm        ext4
 
 # ===============================
 # Core Partitions
 # ===============================
-/dev/block/by-name/boot                /boot               emmc       defaults
-/dev/block/by-name/dtbo                /dtbo               emmc       defaults
-/dev/block/by-name/vendor_boot         /vendor_boot        emmc       defaults
-/dev/block/by-name/vbmeta              /vbmeta             emmc       defaults
-/dev/block/by-name/vbmeta_system       /vbmeta_system      emmc       defaults
-/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc       defaults
+/dev/block/by-name/boot                /boot               emmc
+/dev/block/by-name/dtbo                /dtbo               emmc
+/dev/block/by-name/vendor_boot         /vendor_boot        emmc
+/dev/block/by-name/vbmeta              /vbmeta             emmc
+/dev/block/by-name/vbmeta_system       /vbmeta_system      emmc
+/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
 
 # ===============================
 # User Data Partitions
