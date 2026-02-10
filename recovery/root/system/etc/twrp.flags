@@ -1,5 +1,11 @@
 #<src>              <type> <mnt_point>                                     <flags>
 
+#User Data Partitions
+/metadata                 ext4   /dev/block/by-name/metadata                     flags=display="metadata";backup=1
+/data                     f2fs   /dev/block/by-name/userdata                     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
+/cache                    ext4   /dev/block/by-name/rescue                       flags=display="cache";backup=1;wipeingui;wipeduringfactoryreset
+/persistent               emmc   /dev/block/by-name/frp                          flags=display="persistent"
+
 # Core Partitions
 /boot                     emmc   /dev/block/by-name/boot_a                       flags=backup=1;display="boot";slotselect;flashimg=1
 /boot                     emmc   /dev/block/by-name/boot_b                       flags=backup=1;display="boot";slotselect;flashimg=1
@@ -27,9 +33,6 @@
 /odm                      emmc   /dev/block/mapper/odm_a                         flags=backup=1;display="odm";slotselect;flashimg=1
 /odm_dlkm                 ext4   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
 /odm_dlkm                 erofs  /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
-
-#Data Partitions
-/data                     f2fs   /dev/block/by-name/userdata                     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
 
 # Super partition
 /super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="super";flashimg=1
