@@ -8,7 +8,6 @@
 /dev/block/by-name/vbmeta              /vbmeta             emmc
 /dev/block/by-name/vbmeta_system       /vbmeta_system      emmc
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
-/dev/block/by-name/super               /super              emmc
 
 # ===============================
 # Userdata Partitions
