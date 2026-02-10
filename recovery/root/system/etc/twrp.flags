@@ -1,38 +1,38 @@
 #<src>              <type> <mnt_point>                                     <flags>
 
 # Core Partitions
-/boot                     emmc   /dev/block/by-name/boot_a                       flags=backup=1;display="Boot Image";slotselect;flashimg=1
-/boot                     emmc   /dev/block/by-name/boot_b                       flags=backup=1;display="Boot Image";slotselect;flashimg=1
-/dtbo                     emmc   /dev/block/by-name/dtbo_a                       flags=backup=1;display="Dtbo Image";slotselect;flashimg=1
-/dtbo                     emmc   /dev/block/by-name/dtbo_b                       flags=backup=1;display="Dtbo Image";slotselect;flashimg=1
-/vendor_boot              emmc   /dev/block/by-name/vendor_boot_a                flags=backup=1;display="Vendor Boot Image";slotselect;flashimg=1
-/vendor_boot              emmc   /dev/block/by-name/vendor_boot_b                flags=backup=1;display="Vendor Boot Image";slotselect;flashimg=1
-/vbmeta                   emmc   /dev/block/by-name/vbmeta_a                     flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
-/vbmeta                   emmc   /dev/block/by-name/vbmeta_b                     flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
-/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_a              flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
-/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_b              flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
-/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_a              flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
-/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_b              flags=backup=1;display="Vbmeta Image";slotselect;flashimg=1
+/boot                     emmc   /dev/block/by-name/boot_a                       flags=backup=1;display="boot";slotselect;flashimg=1
+/boot                     emmc   /dev/block/by-name/boot_b                       flags=backup=1;display="boot";slotselect;flashimg=1
+/dtbo                     emmc   /dev/block/by-name/dtbo_a                       flags=backup=1;display="dtbo";slotselect;flashimg=1
+/dtbo                     emmc   /dev/block/by-name/dtbo_b                       flags=backup=1;display="dtbo";slotselect;flashimg=1
+/vendor_boot              emmc   /dev/block/by-name/vendor_boot_a                flags=backup=1;display="vendor_boot";slotselect;flashimg=1
+/vendor_boot              emmc   /dev/block/by-name/vendor_boot_b                flags=backup=1;display="vendor_boot";slotselect;flashimg=1
+/vbmeta                   emmc   /dev/block/by-name/vbmeta_a                     flags=backup=1;display="vbmeta";slotselect;flashimg=1
+/vbmeta                   emmc   /dev/block/by-name/vbmeta_b                     flags=backup=1;display="vbmeta";slotselect;flashimg=1
+/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_a              flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
+/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_b              flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
+/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_a              flags=backup=1;display="vbmeta_vendor";slotselect;flashimg=1
+/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_b              flags=backup=1;display="vbmeta_vendor";slotselect;flashimg=1
 
 # Dynamic Partitions
-/system_root              ext4   /dev/block/mapper/system_a                      flags=backup=1;display="System Image";slotselect;flashimg=1
-/system_root              erofs  /dev/block/mapper/system_a                      flags=backup=1;display="System Image";slotselect;flashimg=1
-/system_ext               ext4   /dev/block/mapper/system_ext_a                  flags=backup=1;display="System_ext Image";slotselect;flashimg=1
-/system_ext               erofs  /dev/block/mapper/system_ext_a                  flags=backup=1;display="System_ext Image";slotselect;flashimg=1
-/vendor                   emmc   /dev/block/mapper/vendor_a                      flags=backup=1;display="Vendor Image";slotselect;flashimg=1
-/vendor_dlkm              ext4   /dev/block/mapper/vendor_dlkm_a                 flags=backup=1;display="VendorDLKM Image";slotselect;flashimg=1
-/vendor_dlkm              erofs  /dev/block/mapper/vendor_dlkm_a                 flags=backup=1;display="VendorDLKM Image";slotselect;flashimg=1
-/product                  ext4   /dev/block/mapper/product_a                     flags=backup=1;display="Product Image";slotselect;flashimg=1
-/product                  erofs  /dev/block/mapper/product_a                     flags=backup=1;display="Product Image";slotselect;flashimg=1
-/odm                      emmc   /dev/block/mapper/odm_a                         flags=backup=1;display="Odm Image";slotselect;flashimg=1
-/odm_dlkm                 ext4   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="OdmDLKM Image";slotselect;flashimg=1
-/odm_dlkm                 erofs  /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="OdmDLKM Image";slotselect;flashimg=1
+/system_root              ext4   /dev/block/mapper/system_a                      flags=backup=1;display="system";slotselect;flashimg=1
+/system_root              erofs  /dev/block/mapper/system_a                      flags=backup=1;display="system";slotselect;flashimg=1
+/system_ext               ext4   /dev/block/mapper/system_ext_a                  flags=backup=1;display="system_ext";slotselect;flashimg=1
+/system_ext               erofs  /dev/block/mapper/system_ext_a                  flags=backup=1;display="system_ext";slotselect;flashimg=1
+/vendor                   emmc   /dev/block/mapper/vendor_a                      flags=backup=1;display="vendor";slotselect;flashimg=1
+/vendor_dlkm              ext4   /dev/block/mapper/vendor_dlkm_a                 flags=backup=1;display="vendor_dlkm";slotselect;flashimg=1
+/vendor_dlkm              erofs  /dev/block/mapper/vendor_dlkm_a                 flags=backup=1;display="vendor_dlkm";slotselect;flashimg=1
+/product                  ext4   /dev/block/mapper/product_a                     flags=backup=1;display="product";slotselect;flashimg=1
+/product                  erofs  /dev/block/mapper/product_a                     flags=backup=1;display="product";slotselect;flashimg=1
+/odm                      emmc   /dev/block/mapper/odm_a                         flags=backup=1;display="odm";slotselect;flashimg=1
+/odm_dlkm                 ext4   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
+/odm_dlkm                 erofs  /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
 
 #Data Partitions
-/data                     f2fs   /dev/block/sdc71                                flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
+/data                     f2fs   /dev/block/by-name/userdata                     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
 
 # Super partition
-/super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="Super Image";flashimg=1
+/super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="super";flashimg=1
 
 #IMEI
 /nvram                    auto   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
@@ -42,8 +42,8 @@
 /nvram                    emmc   /dev/block/by-name/nvram                        flags=backup;subpartitionof=/nvram
 /bootloader2              emmc   /dev/block/by-name/bootloader2                  flags=backup;subpartitionof=/nvram
 /proinfo                  emmc   /dev/block/by-name/proinfo                      flags=backup;subpartitionof=/nvram
-/mnt/vendor/persist       ext4   /dev/block/by-name/persist                      flags=display="Persist"
+/mnt/vendor/persist       ext4   /dev/block/by-name/persist                      flags=display="persist"
 /mnt/vendor/protect_f     emmc   /dev/block/by-name/protect1                     flags=backup;subpartitionof=/nvram
 /mnt/vendor/protect_s     emmc   /dev/block/by-name/protect2                     flags=backup;subpartitionof=/nvram
-/seccfg                   emmc   /dev/block/by-name/seccfg                       flags=display="Seccfg"
+/seccfg                   emmc   /dev/block/by-name/seccfg                       flags=display="seccfg"
 
