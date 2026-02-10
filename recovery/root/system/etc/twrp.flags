@@ -32,9 +32,6 @@
 /odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
 /odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
 
-# Super partition
-/super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="super";flashimg=1
-
 #IMEI
 /nvram                    auto   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
 /boot_para                emmc   /dev/block/by-name/boot_para                    flags=backup;subpartitionof=/nvram
