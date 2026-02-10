@@ -1,4 +1,4 @@
-#<src>                                 <mnt_point>        <type>                                                                                                 <fs_mgr_flags>
+#<src>                                 <mnt_point>        <type>   <fs_mgr_flags>
 # ===============================
 # Core Partitions
 # ===============================
@@ -8,6 +8,11 @@
 /dev/block/by-name/vbmeta              /vbmeta             emmc
 /dev/block/by-name/vbmeta_system       /vbmeta_system      emmc
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
+
+# ===============================
+# Userdata Partitions
+# ===============================
+/dev/block/by-name/userdata            /data               f2fs     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
 
 # ===============================
 # External
