@@ -28,9 +28,8 @@ vendor_dlkm                            /vendor_dlkm        ext4       ro
 # ===============================
 # User Data Partitions
 # ===============================
-/dev/block/by-name/metadata            /metadata           ext4       noatime,nosuid,nodev,discard
-/dev/block/by-name/userdata            /data               f2fs       noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt
-
+/dev/block/by-name/metadata            /metadata           ext4
+/dev/block/by-name/userdata            /data               f2fs
 # ===============================
 # External
 # ===============================
