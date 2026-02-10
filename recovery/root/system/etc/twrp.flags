@@ -5,18 +5,14 @@
 /persistent               emmc   /dev/block/by-name/frp                          flags=display="persistent"
 
 # Core Partitions
-/boot                     emmc   /dev/block/by-name/boot_a                       flags=backup=1;display="boot";slotselect;flashimg=1
-/boot                     emmc   /dev/block/by-name/boot_b                       flags=backup=1;display="boot";slotselect;flashimg=1
-/dtbo                     emmc   /dev/block/by-name/dtbo_a                       flags=backup=1;display="dtbo";slotselect;flashimg=1
-/dtbo                     emmc   /dev/block/by-name/dtbo_b                       flags=backup=1;display="dtbo";slotselect;flashimg=1
-/vendor_boot              emmc   /dev/block/by-name/vendor_boot_a                flags=backup=1;display="vendor_boot";slotselect;flashimg=1
-/vendor_boot              emmc   /dev/block/by-name/vendor_boot_b                flags=backup=1;display="vendor_boot";slotselect;flashimg=1
-/vbmeta                   emmc   /dev/block/by-name/vbmeta_a                     flags=backup=1;display="vbmeta";slotselect;flashimg=1
-/vbmeta                   emmc   /dev/block/by-name/vbmeta_b                     flags=backup=1;display="vbmeta";slotselect;flashimg=1
-/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_a              flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
-/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system_b              flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
-/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_a              flags=backup=1;display="vbmeta_vendor";slotselect;flashimg=1
-/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor_b              flags=backup=1;display="vbmeta_vendor";slotselect;flashimg=1
+/boot                     emmc   /dev/block/by-name/boot                         flags=backup=1;display="boot";slotselect;flashimg=1
+/dtbo                     emmc   /dev/block/by-name/dtbo                         flags=backup=1;display="dtbo";slotselect;flashimg=1
+/super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="super";flashimg=1
+/vendor_boot              emmc   /dev/block/by-name/vendor_boot                  flags=backup=1;display="vendor_boot";slotselect;flashimg=1
+/vbmeta                   emmc   /dev/block/by-name/vbmeta                       flags=backup=1;display="vbmeta";slotselect;flashimg=1
+/vbmeta_system            emmc   /dev/block/by-name/vbmeta_system                flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
+/vbmeta_vendor            emmc   /dev/block/by-name/vbmeta_vendor                flags=backup=1;display="vbmeta_vendor";slotselect;flashimg=1
+
 
 # Dynamic Partitions
 /system_root              emmc   /dev/block/mapper/system_a                      flags=backup=1;display="system";slotselect;flashimg=1
