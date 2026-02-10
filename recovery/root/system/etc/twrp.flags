@@ -1,4 +1,4 @@
-#<src>              <type> <mnt_point>                                     <flags>
+#<src>                    <type> <mnt_point>                                     <flags>
 
 #User Data Partitions
 /metadata                 ext4   /dev/block/by-name/metadata                     flags=display="metadata";backup=1
