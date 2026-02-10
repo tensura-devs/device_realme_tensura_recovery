@@ -10,11 +10,6 @@
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
 
 # ===============================
-# User Data Partitions
-# ===============================
-/dev/block/by-name/metadata            /metadata           ext4
-
-# ===============================
 # External
 # ===============================
 /dev/block/mmcblk0p1                   /external_sd        vfat
