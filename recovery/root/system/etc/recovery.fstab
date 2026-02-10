@@ -12,7 +12,7 @@
 # ===============================
 # Userdata Partitions
 # ===============================
-/dev/block/by-name/userdata            /data               f2fs     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,fsverity
+/dev/block/by-name/userdata            /data               f2fs     flags=fileencryption=aes-aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 
 # ===============================
 # External
