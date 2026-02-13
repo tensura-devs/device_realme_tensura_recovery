@@ -179,7 +179,7 @@ TW_INCLUDE_REPACKTOOLS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_NO_CPU_TEMP := true
-TW_DELAY_TOUCH_INIT_MS := 5000
+TW_DELAY_TOUCH_INIT_MS := 3000
 
 # BLOKIR FSTAB SYSTEM
 TW_EXCLUDE_DEFAULT_FSTAB := true
@@ -199,3 +199,9 @@ TW_LOAD_PREBUILT_MODULES := true
 
 # Apex
 TW_EXCLUDE_APEX=true
+
+# Touchscreen firmware
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img:$(TARGET_COPY_OUT_VENDOR)/firmware/tp/140956/FW_FT3518_SAMSUNG.img \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_VENDOR)/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/LIMIT_FT3518_SAMSUNG.img:$(TARGET_COPY_OUT_VENDOR)/firmware/tp/140956/LIMIT_FT3518_SAMSUNG.img
