@@ -13,7 +13,7 @@
 # ===============================
 # Userdata Partitions
 # ===============================
-/dev/block/by-name/userdata            /data               f2fs     flags=fileencryption=aes-256-cts:keydirectory=/metadata/vold/metadata_encryption
+/dev/block/mapper/userdata            /data               f2fs     flags=fileencryption=aes-256-cts:keydirectory=/metadata/vold/metadata_encryption
 
 # ===============================
 # External
