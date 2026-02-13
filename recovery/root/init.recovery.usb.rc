@@ -58,6 +58,10 @@ on boot
     # for usb otg sdcard hot plug detection
     write /sys/module/block/parameters/events_dfl_poll_msecs 1000
 
+    # Copy firmware ke lokasi yang dicari driver
+    copy /vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img /tp/140956/FW_FT3518_SAMSUNG.img
+    mkdir /tp/140956 0777 root root
+
 on property:init.svc.adbd=stopped
     setprop sys.usb.ffs.ready 0
 
