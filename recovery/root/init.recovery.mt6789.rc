@@ -92,7 +92,7 @@ on boot
     # symlink /vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img /tp/140956/FW_FT3518_SAMSUNG.img
 
 # Healthd service for battery info
-service health-hal-2-1 /system/bin/hw/android.hardware.health@2.1-service
+service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
     override
     class hal
