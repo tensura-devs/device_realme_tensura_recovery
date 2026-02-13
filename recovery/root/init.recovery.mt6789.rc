@@ -80,6 +80,10 @@ on boot
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
     write /sys/class/leds/lcd-backlight/brightness 1024
 
+    # Copy firmware ke lokasi yang dicari driver
+    copy /vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img /tp/140956/FW_FT3518_SAMSUNG.img
+    mkdir /tp/140956 0777 root root
+
 # Healthd service for battery info
 service health-hal-2-1 /system/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
