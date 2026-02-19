@@ -1,5 +1,22 @@
 #<src>                                 <mnt_point>        <type>   <fs_mgr_flags>
 # ===============================
+# Dynamic Partitions
+# ===============================
+system                                /system              ext4
+system                                /system              erofs
+vendor                                /vendor              ext4
+vendor                                /vendor              erofs
+vendor_dlkm                           /vendor_dlkm         ext4
+vendor_dlkm                           /vendor_dlkm         erofs
+product                               /product             ext4
+product                               /product             erofs
+system_ext                            /system_ext          ext4
+system_ext                            /system_ext          erofs
+odm                                   /odm                 ext4
+odm                                   /odm                 erofs
+odm_dlkm                              /odm_dlkm            ext4
+odm_dlkm                              /odm_dlkm            erofs
+# ===============================
 # Core Partitions
 # ===============================
 /dev/block/by-name/boot                /boot               emmc
