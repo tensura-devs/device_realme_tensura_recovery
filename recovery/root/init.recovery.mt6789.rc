@@ -21,13 +21,18 @@ on init
     mkdir /boot
     mkdir /recovery
     mkdir /system 0771 root root
-    mkdir /vendor 0771 root root
+    mkdir /vendor 0755 root root
     mkdir /data
     mkdir /metadata
     mkdir /cache
+    
+    # Pastikan /mnt dan /mnt/vendor ada sebelum membuat subdirektori
+    mkdir /mnt 0755 root root
+    mkdir /mnt/vendor 0755 root root
     mkdir /mnt/vendor/persist 0771 root root
     mkdir /mnt/vendor/protect_f 0771 root root
     mkdir /mnt/vendor/protect_s 0771 root root
+    
     mkdir /nvdata 0771 root root
     mkdir /nvcfg 0771 root root
     
