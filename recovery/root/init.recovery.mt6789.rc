@@ -5,13 +5,11 @@ import /tee.rc
 on early-init
     # Set security contexts
     setcon u:r:recovery:s0
-    mount /vendor
-
-on init
-    # Start essential services
     start ueventd
     start healthd
 
+on init
+    # Start essential services
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -54,6 +52,19 @@ on fs
     # Mount metadata for FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
+
+    # Buat symlink vendor ke slot aktif
+    exec u:r:recovery:s0 -- /system/bin/sh -c '
+        slot=$(getprop ro.boot.slot_suffix)
+        if [ -z "$slot" ]; then
+            [ -e /dev/block/mapper/vendor_a ] && slot="_a" || slot="_b"
+        fi
+        if [ -n "$slot" ] && [ -e "/dev/block/mapper/vendor$slot" ]; then
+            ln -sf "/dev/block/mapper/vendor$slot" /dev/block/mapper/vendor
+        fi
+    '
+    # Mount vendor secara manual (opsional, jika tidak di fstab)
+    mount ext4 /dev/block/mapper/vendor /vendor ro
 
 on post-fs
     # Start keymaster for decryption
