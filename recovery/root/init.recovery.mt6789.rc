@@ -8,9 +8,6 @@ on early-init
     start ueventd
     start healthd
 
-    # Mount vendor dulu
-    mount /vendor
-
 on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
