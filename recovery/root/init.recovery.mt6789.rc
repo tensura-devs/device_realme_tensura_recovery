@@ -1,4 +1,6 @@
 import /init.recovery.logd.rc
+import /trustonic.rc
+import /tee.rc
 
 on early-init
     # Set security contexts
@@ -52,24 +54,6 @@ on fs
     # Mount metadata for FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
-
-    # Deteksi slot aktif (a atau b)
-    exec u:r:recovery:s0 -- /system/bin/sh -c '
-        slot=$(getprop ro.boot.slot_suffix 2>/dev/null)
-        if [ -z "$slot" ]; then
-            # fallback: cek keberadaan partisi
-            if [ -e /dev/block/mapper/vendor_a ]; then
-                slot="_a"
-            elif [ -e /dev/block/mapper/vendor_b ]; then
-                slot="_b"
-            else
-                slot=""
-            fi
-        fi
-        if [ -n "$slot" ] && [ -e "/dev/block/mapper/vendor$slot" ]; then
-            ln -sf "/dev/block/mapper/vendor$slot" /dev/block/mapper/vendor
-        fi
-    '
 
 on post-fs
     # Start keymaster for decryption
