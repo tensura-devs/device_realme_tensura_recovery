@@ -58,16 +58,6 @@ on fs
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
 
-    # Buat symlink vendor ke slot aktif
-    exec u:r:recovery:s0 -- /system/bin/sh -c '
-        slot=$(getprop ro.boot.slot_suffix)
-        if [ -z "$slot" ]; then
-            [ -e /dev/block/mapper/vendor_a ] && slot="_a" || slot="_b"
-        fi
-        if [ -n "$slot" ] && [ -e "/dev/block/mapper/vendor$slot" ]; then
-            ln -sf "/dev/block/mapper/vendor$slot" /dev/block/mapper/vendor
-        fi
-    '
     # Mount vendor secara manual (opsional, jika tidak di fstab)
     mount ext4 /dev/block/mapper/vendor /vendor ro
 
