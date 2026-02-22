@@ -2,13 +2,13 @@
 # ===============================
 # Core Partitions
 # ===============================
-system                                 /system_root        ext4
-vendor                                 /vendor             ext4
-vendor_dlkm                            /vendor_dlkm        ext4
-product                                /product            ext4
-system_ext                             /system_ext         ext4
-odm                                    /odm                ext4
-odm_dlkm                               /odm_dlkm           ext4
+system                                 /system_root        ext4    ro
+vendor                                 /vendor             ext4    ro
+vendor_dlkm                            /vendor_dlkm        ext4    ro
+product                                /product            ext4    ro
+system_ext                             /system_ext         ext4    ro
+odm                                    /odm                ext4    ro
+odm_dlkm                               /odm_dlkm           ext4    ro
 
 # ===============================
 # Core Partitions
