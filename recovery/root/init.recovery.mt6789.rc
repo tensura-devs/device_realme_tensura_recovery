@@ -19,8 +19,8 @@ on init
     # Create mountpoints
     mkdir /boot
     mkdir /recovery
-    mkdir /system 0771 root root
-    mkdir /vendor 0771 root root
+    mkdir /system
+    mkdir /vendor
     mkdir /data
     mkdir /metadata
     mkdir /cache
