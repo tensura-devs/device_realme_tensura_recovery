@@ -48,6 +48,9 @@ on init
     # Permissions
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
+
+    # Mount vendor secara manual (opsional, jika tidak di fstab)
+    mount /vendor
     
 on fs
     # Wait for devices
@@ -57,9 +60,6 @@ on fs
     # Mount metadata for FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
-
-    # Mount vendor secara manual (opsional, jika tidak di fstab)
-    mount ext4 /dev/block/mapper/vendor /vendor ro
 
 on post-fs
     # Start keymaster for decryption
