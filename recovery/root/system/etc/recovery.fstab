@@ -2,6 +2,17 @@
 # ===============================
 # Core Partitions
 # ===============================
+system                                 /system             erofs
+vendor                                 /vendor             erofs
+vendor_dlkm                            /vendor_dlkm        erofs
+product                                /product            erofs
+system_ext                             /system_ext         erofs
+odm                                    /odm                erofs
+odm_dlkm                               /odm_dlkm           erofs
+
+# ===============================
+# Core Partitions
+# ===============================
 /dev/block/by-name/boot                /boot               emmc
 /dev/block/by-name/dtbo                /dtbo               emmc
 /dev/block/by-name/super               /super              emmc
