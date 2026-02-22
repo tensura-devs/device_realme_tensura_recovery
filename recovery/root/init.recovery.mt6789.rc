@@ -4,11 +4,11 @@ on early-init
     # Set security contexts
     setcon u:r:recovery:s0
 
+on init
     # Start essential services
     start ueventd
     start healthd
 
-on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -24,12 +24,11 @@ on init
     mkdir /data
     mkdir /metadata
     mkdir /cache
-    mkdir /persist
+    mkdir /mnt/vendor/persist 0771 root root
     mkdir /mnt/vendor/protect_f 0771 root root
     mkdir /mnt/vendor/protect_s 0771 root root
-    mkdir /mnt/vendor/nvdata 0771 root root
-    mkdir /mnt/vendor/nvcfg 0771 root root
-    mkdir /mnt/vendor/persist 0771 root root
+    mkdir /nvdata 0771 root root
+    mkdir /nvcfg 0771 root root
     
     # Symlinks for compatibility
     symlink /system/bin /bin
@@ -52,6 +51,24 @@ on fs
     # Mount metadata for FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
+
+    # Deteksi slot aktif (a atau b)
+    exec u:r:recovery:s0 -- /system/bin/sh -c '
+        slot=$(getprop ro.boot.slot_suffix 2>/dev/null)
+        if [ -z "$slot" ]; then
+            # fallback: cek keberadaan partisi
+            if [ -e /dev/block/mapper/vendor_a ]; then
+                slot="_a"
+            elif [ -e /dev/block/mapper/vendor_b ]; then
+                slot="_b"
+            else
+                slot=""
+            fi
+        fi
+        if [ -n "$slot" ] && [ -e "/dev/block/mapper/vendor$slot" ]; then
+            ln -sf "/dev/block/mapper/vendor$slot" /dev/block/mapper/vendor
+        fi
+    '
 
 on post-fs
     # Start keymaster for decryption
