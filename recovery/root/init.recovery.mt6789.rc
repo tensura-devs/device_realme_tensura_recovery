@@ -48,9 +48,6 @@ on init
     # Permissions
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
-
-    # Mount vendor secara manual (opsional, jika tidak di fstab)
-    mount /vendor
     
 on fs
     # Wait for devices
