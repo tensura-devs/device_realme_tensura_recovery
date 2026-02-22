@@ -3,6 +3,8 @@ import /init.recovery.logd.rc
 on early-init
     # Set security contexts
     setcon u:r:recovery:s0
+    mkdir /system 0771 root root
+    mkdir /vendor 0771 root root
 
 on init
     # Start essential services
@@ -19,8 +21,7 @@ on init
     # Create mountpoints
     mkdir /boot
     mkdir /recovery
-    mkdir /system
-    mkdir /vendor
+
     mkdir /data
     mkdir /metadata
     mkdir /cache
