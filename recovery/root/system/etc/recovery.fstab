@@ -15,3 +15,25 @@ odm                                    /odm                ext4
 odm                                    /odm                erofs
 odm_dlkm                               /odm_dlkm           ext4
 odm_dlkm                               /odm_dlkm           erofs
+
+# ===============================
+# Core Partitions
+# ===============================
+/dev/block/by-name/boot                /boot               emmc
+/dev/block/by-name/dtbo                /dtbo               emmc
+/dev/block/by-name/super               /super              emmc
+/dev/block/by-name/vendor_boot         /vendor_boot        emmc
+/dev/block/by-name/vbmeta              /vbmeta             emmc
+/dev/block/by-name/vbmeta_system       /vbmeta_system      emmc
+/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
+
+# ===============================
+# Userdata Partitions
+# ===============================
+/dev/block/by-name/userdata            /data               f2fs     flags=fileencryption=aes-256-cts:keydirectory=/metadata/vold/metadata_encryption
+
+# ===============================
+# External
+# ===============================
+/dev/block/mmcblk0p1                   /external_sd        vfat
+/dev/block/sdd1                        /usb_otg            vfat
