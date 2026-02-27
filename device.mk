@@ -94,7 +94,7 @@ PRODUCT_PACKAGES += \
 
 # MTK PlPath Utils
 PRODUCT_PACKAGES += \
-    mtk_plpath_utils.recovery
+    mtk_plpath_utils
 
 # Security
 PRODUCT_PACKAGES += \
