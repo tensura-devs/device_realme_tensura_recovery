@@ -111,6 +111,10 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     init.recovery.mt6789.rc \
     init.recovery.logd.rc
 
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_VENDOR)/firmware/tp/140956/FW_FT3518_SAMSUNG.img \
+    $(LOCAL_PATH)/recovery/root/system/etc/additional.fstab:$(TARGET_COPY_OUT_RECOVERY)/root/etc/additional.fstab
+
 # Copy init scripts to recovery & Services libraries
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
