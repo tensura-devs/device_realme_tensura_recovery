@@ -1,8 +1,8 @@
 #<src>                    <type> <mnt_point>                                     <flags>
 
 #User Data Partitions
-/metadata                 ext4   /dev/block/by-name/metadata                     flags=display="metadata";backup=0
-/data                     f2fs   /dev/block/by-name/userdata                     flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized;keydirectory=/metadata/vold/metadata_encryption;quota
+/metadata                 ext4   /dev/block/by-name/metadata                     flags=display="Metadata";backup=0
+/data                     f2fs   /dev/block/by-name/userdata                     flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
 /persistent               emmc   /dev/block/by-name/frp                          flags=display="persistent"
 
 # Core Partitions
