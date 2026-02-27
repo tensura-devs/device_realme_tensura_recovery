@@ -23,7 +23,7 @@ odm_dlkm                               /odm_dlkm           ext4
 # ===============================
 # Userdata Partitions
 # ===============================
-/dev/block/sdc71                       /data               f2fs  flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
+/dev/block/sdc71                       /data               f2fs
 /dev/block/by-name/metadata            /metadata           ext4
 
 # ===============================
