@@ -1,33 +1,37 @@
 # ===============================
-# Core Partitions
+# Dynamic Partitions (logical)
 # ===============================
-vendor                                 /vendor             erofs
-odm                                    /odm                erofs
-system                                 /system_root        erofs
-vendor_dlkm                            /vendor_dlkm        ext4
-product                                /product            ext4
-system_ext                             /system_ext         erofs
-odm_dlkm                               /odm_dlkm           ext4
+vendor                                 /vendor              erofs    ro
+odm                                    /odm                 erofs    ro
+system                                 /system_root         erofs    ro
+vendor_dlkm                            /vendor_dlkm         ext4     ro
+product                                /product             ext4     ro
+system_ext                             /system_ext          erofs    ro
+odm_dlkm                               /odm_dlkm            ext4     ro
 
 # ===============================
-# Core Partitions
+# Raw Partitions
 # ===============================
-/dev/block/by-name/boot                /boot               emmc
-/dev/block/by-name/dtbo                /dtbo               emmc
-/dev/block/by-name/super               /super              emmc
-/dev/block/by-name/vendor_boot         /vendor_boot        emmc
-/dev/block/by-name/vbmeta              /vbmeta             emmc
-/dev/block/by-name/vbmeta_system       /vbmeta_system      emmc
-/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor      emmc
+/dev/block/by-name/boot                /boot                emmc
+/dev/block/by-name/dtbo                /dtbo                emmc
+/dev/block/by-name/super               /super               emmc
+/dev/block/by-name/vendor_boot         /vendor_boot         emmc
+/dev/block/by-name/vbmeta              /vbmeta              emmc
+/dev/block/by-name/vbmeta_system       /vbmeta_system       emmc
+/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc
 
 # ===============================
-# Userdata Partitions
+# Metadata (WAJIB untuk FBE decrypt)
 # ===============================
-/dev/block/sdc71                       /data               f2fs
-/dev/block/by-name/metadata            /metadata           ext4
+/dev/block/by-name/metadata            /metadata            ext4     defaults    flags=display="Metadata";backup=0
+
+# ===============================
+# Userdata
+# ===============================
+/dev/block/by-name/userdata            /data                f2fs     noatime,nosuid,nodev,discard    flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
 
 # ===============================
 # External
 # ===============================
-/dev/block/mmcblk0p1                   /external_sd        vfat
-/dev/block/sdd1                        /usb_otg            vfat
+/dev/block/mmcblk0p1                   /external_sd         vfat
+/dev/block/sdd1                        /usb_otg             vfat
