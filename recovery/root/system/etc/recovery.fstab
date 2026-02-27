@@ -23,12 +23,12 @@ odm_dlkm                               /odm_dlkm            ext4     ro
 # ===============================
 # Metadata (WAJIB untuk FBE decrypt)
 # ===============================
-/dev/block/by-name/metadata            /metadata            ext4     defaults    flags=display="Metadata";backup=0
+/dev/block/by-name/metadata            /metadata            ext4     defaults    display="Metadata";backup=0
 
 # ===============================
 # Userdata
 # ===============================
-/dev/block/by-name/userdata            /data                f2fs     noatime,nosuid,nodev,discard    flags=fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
+/dev/block/by-name/userdata            /data                f2fs     noatime,nosuid,nodev,discard    fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
 
 # ===============================
 # External
