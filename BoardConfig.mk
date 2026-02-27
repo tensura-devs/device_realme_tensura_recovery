@@ -210,7 +210,3 @@ TW_LOAD_PREBUILT_MODULES := true
 
 # Apex
 TW_EXCLUDE_APEX=true
-
-# Touchscreen firmware
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_VENDOR)/firmware/tp/140956/FW_FT3518_SAMSUNG.img
