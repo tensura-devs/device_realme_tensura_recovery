@@ -1,9 +1,6 @@
 on early-init
     start mtk.plpath.utils.link
 
-on init
-    start mtk.plpath.utils.link
-
 on property:persist.vendor.mtk.pl_lnk=1
     symlink /dev/block/mapper/pl_a /dev/block/platform/bootdevice/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/platform/bootdevice/by-name/preloader_raw_b
