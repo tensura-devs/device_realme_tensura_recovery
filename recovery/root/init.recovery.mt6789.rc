@@ -1,6 +1,5 @@
 import /init.recovery.logd.rc
 import /trustonic.rc
-import /tee.rc
 
 on early-init
     # Set security contexts
@@ -9,15 +8,11 @@ on early-init
     start healthd
 
 on init
-    # Start essential services
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-    
-    # Library paths
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib
-
-    # Create mountpoints
+    
     mkdir /boot
     mkdir /recovery
     mkdir /system 0771 root root
@@ -26,7 +21,6 @@ on init
     mkdir /metadata
     mkdir /cache
     
-    # Pastikan /mnt dan /mnt/vendor ada sebelum membuat subdirektori
     mkdir /mnt 0755 root root
     mkdir /mnt/vendor 0755 root root
     mkdir /mnt/vendor/persist 0771 root root
@@ -36,16 +30,13 @@ on init
     mkdir /nvdata 0771 root root
     mkdir /nvcfg 0771 root root
     
-    # Symlinks for compatibility
     symlink /system/bin /bin
     symlink /system/etc /etc
 
-    # Create device nodes
     mkdir /dev/block
     mkdir /dev/block/platform
     mkdir /dev/block/by-name
     
-    # Permissions
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
     
@@ -67,34 +58,32 @@ on fs
     wait /dev/block/by-name/protect2
     mount ext4 /dev/block/by-name/protect2 /mnt/vendor/protect_s noatime nosuid nodev noauto_da_alloc commit=1 nodelalloc
 
+    # Start mobicore SEBELUM keymint
+    start mobicore
+
 on post-fs
-    # Permissions untuk persist
+    # Permissions persist untuk mobicore
     chown system system /mnt/vendor/persist
     chmod 0771 /mnt/vendor/persist
     mkdir /mnt/vendor/persist/mcRegistry 0771 system system
 
-    # Start mobicore DULU sebelum keymint
-    start mobicore
-    # Tunggu mobicore init
-    sleep 1
+    # Tunggu mobicore siap
+    sleep 2
 
     # Start keymint dan keystore
     start vendor.keymint-default
     start keystore2
     start gatekeeper-1-0
 
-    # Permissions untuk brightness
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
     chmod 0666 /sys/class/backlight/panel0-backlight/brightness
     
 on boot
-    # Set USB config
     setprop sys.usb.config adb
     setprop sys.usb.configfs 1
     setprop sys.usb.controller "musb-hdrc"
     setprop sys.usb.ffs.aio_compat 1
-    
-    # Enable ADB
+
     write /sys/class/android_usb/android0/enable 0
     write /sys/class/android_usb/android0/idVendor 18D1
     write /sys/class/android_usb/android0/idProduct D001
@@ -103,24 +92,17 @@ on boot
     write /sys/class/android_usb/android0/iProduct ${ro.product.model}
     write /sys/class/android_usb/android0/iSerial ${ro.serialno}
     write /sys/class/android_usb/android0/enable 1
-    
-    # Brightness
+
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
     write /sys/class/leds/lcd-backlight/brightness 1024
 
-    # Buat direktori di root
     mkdir /tp 0777 root root
     mkdir /tp/140956 0777 root root
-    
-    # Copy firmware ke root (bukan symlink)
     copy /vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img /tp/140956/FW_FT3518_SAMSUNG.img
     copy /vendor/firmware/tp/140956/LIMIT_FT3518_SAMSUNG.img /tp/140956/LIMIT_FT3518_SAMSUNG.img
-    
-    # Set permission
     chmod 0644 /tp/140956/FW_FT3518_SAMSUNG.img
     chmod 0644 /tp/140956/LIMIT_FT3518_SAMSUNG.img
 
-# Healthd service for battery info
 service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
     override
@@ -131,7 +113,6 @@ service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     file /dev/kmsg w
     disabled
 
-# Gatekeeper for lock screen
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
     class hal
@@ -139,14 +120,12 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     group system
     disabled
 
-# Keystore2 for FBE
 service keystore2 /system/bin/keystore2 /tmp/misc/keystore
     class early_hal
     user root
     group root system
     disabled
 
-# Vendor KeyMint (for Android 12+)
 service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-service.trustonic
     class early_hal
     user system
@@ -155,9 +134,7 @@ service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-
     seclabel u:r:recovery:s0
 
 on property:twrp.decrypt.done=true
-    # Trigger after decryption
     setprop ro.crypto.state encrypted
 
 on property:ro.crypto.state=encrypted
-    # Start services needed after decrypt
     start keystore2
