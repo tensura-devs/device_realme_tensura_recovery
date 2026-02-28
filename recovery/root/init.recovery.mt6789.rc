@@ -50,19 +50,23 @@ on init
     chmod 0666 /dev/kmsg
     
 on fs
-    # Wait for devices
     wait /dev/block/platform/bootdevice
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
-    
-    # Mount metadata for FBE
+
+    # Mount metadata untuk FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
 
+    # Start mobicore daemon dulu sebelum keymint
+    start mobicore
+
 on post-fs
-    # Start keymaster for decryption
-    start keystore2
-    start gatekeeper-1-0
+    # Tunggu mobicore siap
+    sleep 2
+
+    # Start keymint service Trustonic
     start vendor.keymint-default
+    start keystore2
     
     # Permissions for brightness
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
@@ -130,8 +134,10 @@ service keystore2 /system/bin/keystore2 /tmp/misc/keystore
 # Vendor KeyMint (for Android 12+)
 service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-service.trustonic
     class early_hal
-    user nobody
+    user root
+    group root system
     disabled
+    seclabel u:r:recovery:s0
 
 on property:twrp.decrypt.done=true
     # Trigger after decryption
