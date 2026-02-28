@@ -149,8 +149,8 @@ service keystore2 /system/bin/keystore2 /tmp/misc/keystore
 # Vendor KeyMint (for Android 12+)
 service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-service.trustonic
     class early_hal
-    user root
-    group root system
+    user system
+    group system
     disabled
     seclabel u:r:recovery:s0
 
