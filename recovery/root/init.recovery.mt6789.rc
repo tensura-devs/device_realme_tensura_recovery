@@ -55,20 +55,35 @@ on fs
 
     # Mount metadata untuk FBE
     wait /dev/block/by-name/metadata
-    mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime
+    mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime discard
 
-    # Start mobicore daemon dulu sebelum keymint
-    start mobicore
+    # Mount persist untuk mobicore/trustonic
+    wait /dev/block/by-name/persist
+    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist noatime nosuid nodev noauto_da_alloc commit=1 nodelalloc
+
+    # Mount protect partitions
+    wait /dev/block/by-name/protect1
+    mount ext4 /dev/block/by-name/protect1 /mnt/vendor/protect_f noatime nosuid nodev noauto_da_alloc commit=1 nodelalloc
+    wait /dev/block/by-name/protect2
+    mount ext4 /dev/block/by-name/protect2 /mnt/vendor/protect_s noatime nosuid nodev noauto_da_alloc commit=1 nodelalloc
 
 on post-fs
-    # Tunggu mobicore siap
-    sleep 2
+    # Permissions untuk persist
+    chown system system /mnt/vendor/persist
+    chmod 0771 /mnt/vendor/persist
+    mkdir /mnt/vendor/persist/mcRegistry 0771 system system
 
-    # Start keymint service Trustonic
+    # Start mobicore DULU sebelum keymint
+    start mobicore
+    # Tunggu mobicore init
+    sleep 1
+
+    # Start keymint dan keystore
     start vendor.keymint-default
     start keystore2
-    
-    # Permissions for brightness
+    start gatekeeper-1-0
+
+    # Permissions untuk brightness
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
     chmod 0666 /sys/class/backlight/panel0-backlight/brightness
     
