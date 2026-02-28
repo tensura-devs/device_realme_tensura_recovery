@@ -105,9 +105,14 @@ PRODUCT_PACKAGES += \
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
     libion \
+    android.hardware.security.keymint \
+    android.hardware.security.secureclock \
+    android.hardware.security.sharedsecret \
     android.hardware.gatekeeper@1.0 \
     android.hardware.keymaster@4.1 \
     libkeymaster4_1support \
+    libkeymaster41 \
+    libteec \
     init.recovery.mt6789.rc \
     init.recovery.logd.rc
 
@@ -121,6 +126,9 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.keymaster@4.1 \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4support.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4_1support.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libteec.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster41.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so \
     $(TARGET_OUT_EXECUTABLES)/ashmemd \
     $(TARGET_OUT_EXECUTABLES)/keystore2 \
     $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service
