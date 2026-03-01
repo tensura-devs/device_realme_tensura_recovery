@@ -45,6 +45,9 @@ on fs
     wait /dev/block/platform/bootdevice
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 
+    # Setup logical partition device mapper via vold
+    exec /vendor/bin/hw/vold --blkid-context=u:r:blkid:s0 --blkid-untrusted-context=u:r:blkid_untrusted:s0 --fsck-context=u:r:fsck:s0 --fsck-untrusted-context=u:r:fsck_untrusted:s0 || true
+
     # Mount metadata untuk FBE
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime discard
