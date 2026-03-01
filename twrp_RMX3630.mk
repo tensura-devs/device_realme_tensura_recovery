@@ -20,6 +20,9 @@ $(call inherit-product, $(DEVICE_PATH)/device.mk)
 # Inherit some common TWRP stuff.
 $(call inherit-product, vendor/twrp/config/common.mk)
 
+# Inherit any OrangeFox-specific settings
+$(call inherit-product-if-exists, $(DEVICE_PATH)/fox_$(PRODUCT_RELEASE_NAME).mk)
+
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := RMX3630
 PRODUCT_NAME := twrp_$(PRODUCT_RELEASE_NAME)
