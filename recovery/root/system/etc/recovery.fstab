@@ -23,8 +23,7 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 # ===============================
 # Metadata (WAJIB untuk FBE decrypt)
 # ===============================
-/dev/block/by-name/metadata            /metadata            ext4    defaults                         display="Metadata"
-
+/dev/block/by-name/metadata            /metadata            ext4    noatime,nosuid,nodev,discard     display="Metadata",wait,check,formattable,first_stage_mount
 # ===============================
 # Userdata
 # ===============================
