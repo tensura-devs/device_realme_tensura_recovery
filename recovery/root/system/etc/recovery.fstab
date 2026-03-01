@@ -26,11 +26,6 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 /dev/block/by-name/metadata            /metadata            ext4    defaults                         display="Metadata"
 
 # ===============================
-# Userdata
-# ===============================
-/dev/block/by-name/userdata            /data                f2fs    noatime,nosuid,nodev,discard     fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
-
-# ===============================
 # External
 # ===============================
 /dev/block/mmcblk0p1                   /external_sd         vfat
