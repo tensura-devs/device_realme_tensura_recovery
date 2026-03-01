@@ -31,7 +31,7 @@
 /odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm_b                    flags=backup=1;display="odm_dlkm_b";slotselect;flashimg=1
 
 #IMEI
-/nvram                    auto   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
+/nvram                    emmc   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
 /boot_para                emmc   /dev/block/by-name/boot_para                    flags=backup;subpartitionof=/nvram
 /nvcfg                    ext4   /dev/block/by-name/nvcfg                        flags=backup;subpartitionof=/nvram
 /nvdata                   ext4   /dev/block/by-name/nvdata                       flags=backup;subpartitionof=/nvram
