@@ -1,8 +1,8 @@
 # ===============================
 # Dynamic Partitions (logical)
 # ===============================
-vendor                                 /vendor              erofs    ro slotselect,logical
-odm                                    /odm                 erofs    ro slotselect,logical,nofail
+vendor                                 /vendor              erofs    ro wait,slotselect,avb,logical,first_stage_mount
+odm                                    /odm                 erofs    ro wait,logical,slotselect,first_stage_mount,nofail
 system                                 /system_root         erofs    ro slotselect
 vendor_dlkm                            /vendor_dlkm         ext4     ro
 product                                /product             ext4     ro
