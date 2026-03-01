@@ -3,11 +3,11 @@
 # ===============================
 vendor                                 /vendor              erofs    ro wait,slotselect,avb,logical,first_stage_mount
 odm                                    /odm                 erofs    ro wait,logical,slotselect,first_stage_mount,nofail
-system                                 /system_root         erofs    ro slotselect
-vendor_dlkm                            /vendor_dlkm         ext4     ro
-product                                /product             ext4     ro
-system_ext                             /system_ext          erofs    ro
-odm_dlkm                               /odm_dlkm            ext4     ro
+system                                 /system_root         erofs    ro wait,slotselect,avb=vbmeta_system,logical,first_stage_mount,avb_keys=/avb/q-gsi.avbpubkey:/avb/r-gsi.avbpubkey:/avb/s-gsi.avbpubkey
+vendor_dlkm                            /vendor_dlkm         ext4     ro wait,slotselect,avb,logical,first_stage_mount
+product                                /product             ext4     ro wait,slotselect,avb,logical,first_stage_mount
+system_ext                             /system_ext          erofs    ro wait,slotselect,avb,logical,first_stage_mount
+odm_dlkm                               /odm_dlkm            ext4     ro wait,logical,slotselect,first_stage_mount,nofail
 
 # ===============================
 # Raw Partitions
