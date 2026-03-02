@@ -32,10 +32,10 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 # ===============================
 # Core
 # ===============================
-/dev/block/by-name/persist             /persist             ext4    defaults    defaults
+/dev/block/by-name/persist             /mnt/vendor/persist  ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 
 # ===============================
 # External
 # ===============================
-/dev/block/mmcblk0p1                   /external_sd         vfat
-/dev/block/sdd1                        /usb_otg             vfat
+/dev/block/mmcblk0p1                   /external_sd         vfat    nosuid,nodev defaults
+/dev/block/sdd1                        /usb_otg             vfat    nosuid,nodev defaults
