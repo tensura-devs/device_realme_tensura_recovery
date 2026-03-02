@@ -42,6 +42,8 @@ on init
     chmod 0666 /dev/kmsg
     
 on fs
+    write /proc/touchpanel/tp_fw_update 1
+
     wait /dev/block/platform/bootdevice
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 
