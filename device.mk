@@ -114,8 +114,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     init.recovery.logd.rc
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img:$(TARGET_COPY_OUT_RECOVERY)/root/tp/140956/FW_FT3518_SAMSUNG.img \
-    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/LIMIT_FT3518_SAMSUNG.img:$(TARGET_COPY_OUT_RECOVERY)/root/tp/140956/LIMIT_FT3518_SAMSUNG.img
+    $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img
 
 # Copy init scripts to recovery & Services libraries
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
