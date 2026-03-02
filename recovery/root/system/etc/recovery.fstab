@@ -32,7 +32,7 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 # ===============================
 # Core
 # ===============================
-/dev/block/by-name/persist             /mnt/vendor/persist  ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+/dev/block/by-name/persist             /persist             ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
 
 # ===============================
 # External
