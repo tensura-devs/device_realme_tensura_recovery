@@ -8,16 +8,6 @@ vendor_dlkm                            /vendor_dlkm         ext4     ro wait,log
 product                                /product             ext4     ro wait,logical,slotselect
 system_ext                             /system_ext          erofs    ro wait,logical,slotselect
 odm_dlkm                               /odm_dlkm            ext4     ro wait,logical,slotselect
-my_product                             /my_product          erofs    ro wait,slotselect,logical
-my_engineering                         /my_engineering      erofs    ro wait,slotselect,logical
-my_company                             /my_company          erofs    ro wait,slotselect,logical
-my_carrier                             /my_carrier          erofs    ro wait,slotselect,logical
-my_region                              /my_region           erofs    ro wait,slotselect,logical
-my_heytap                              /my_heytap           erofs    ro wait,slotselect,logical
-my_stock                               /my_stock            erofs    ro wait,slotselect,logical
-my_preload                             /my_preload          erofs    ro wait,slotselect,logical
-my_bigball                             /my_bigball          erofs    ro wait,slotselect,logical
-my_manifest                            /my_manifest         erofs    ro wait,slotselect,logical
 
 # ===============================
 # Raw Partitions
