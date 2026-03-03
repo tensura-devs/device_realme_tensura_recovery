@@ -1,12 +1,12 @@
 # ===============================
 # Dynamic Partitions (logical)
 # ===============================
-system                                 /system_root         erofs    ro wait,logical,slotselect
 vendor                                 /vendor              erofs    ro wait,logical,slotselect
+odm                                    /odm                 erofs    ro wait,logical,slotselect
+system                                 /system_root         erofs    ro wait,logical,slotselect
 vendor_dlkm                            /vendor_dlkm         ext4     ro wait,logical,slotselect
 product                                /product             ext4     ro wait,logical,slotselect
 system_ext                             /system_ext          erofs    ro wait,logical,slotselect
-odm                                    /odm                 erofs    ro wait,logical,slotselect
 odm_dlkm                               /odm_dlkm            ext4     ro wait,logical,slotselect
 my_product                             /my_product          erofs    ro wait,slotselect,logical
 my_engineering                         /my_engineering      erofs    ro wait,slotselect,logical
