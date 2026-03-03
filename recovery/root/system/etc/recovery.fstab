@@ -28,7 +28,7 @@ my_manifest                            /my_manifest         erofs    ro wait,slo
 /dev/block/by-name/vbmeta              /vbmeta              emmc    defaults defaults
 /dev/block/by-name/vbmeta_system       /vbmeta_system       emmc    defaults defaults
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc    defaults defaults
-/dev/block/by-name/odm                 /custom              ext4    ro       wait,verify,recoveryonly
+/dev/block/by-name/odm                 /custom              ext4    ro       wait,verify
 /dev/block/by-name/tee1                /tee1                emmc    defaults defaults
 /dev/block/by-name/tee2                /tee2                emmc    defaults defaults
 /dev/block/by-name/sspm_1              /sspm_1              emmc    defaults defaults
