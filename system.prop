@@ -19,4 +19,7 @@ persist.vendor.tp.update.disable=1
 vendor.tp.fw.update.disable=1
 persist.vendor.tp.irq_resume_time=20
 
+persist.vendor.tp.fw_name=tp/140956/FW_FT3518_SAMSUNG.img
+persist.vendor.tp.limit_name=tp/140956/LIMIT_FT3518_SAMSUNG.img
+
 keymaster_ver=4.1
