@@ -9,6 +9,7 @@ on early-init
     start mtk.plpath.utils.link
 
 on init
+    write /proc/touchpanel/tp_fw_update 1
     start tp_fw_flash
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
