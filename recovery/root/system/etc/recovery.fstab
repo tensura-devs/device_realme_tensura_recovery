@@ -1,5 +1,5 @@
 # ===============================
-# Dynamic Partitions (logical)
+# Dynamic Partitions
 # ===============================
 vendor                                 /vendor              erofs    ro wait,logical,slotselect
 odm                                    /odm                 erofs    ro wait,logical,slotselect
