@@ -1,5 +1,5 @@
 # ===============================
-# Dynamic Partitions
+# Dynamic Partitions (logical)
 # ===============================
 vendor                                 /vendor              erofs    ro wait,logical,slotselect
 odm                                    /odm                 erofs    ro wait,logical,slotselect
@@ -12,12 +12,13 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 # ===============================
 # Raw Partitions
 # ===============================
-/dev/block/by-name/boot                /boot                emmc    defaults defaults
-/dev/block/by-name/dtbo                /dtbo                emmc    defaults defaults
-/dev/block/by-name/vendor_boot         /vendor_boot         emmc    defaults defaults
-/dev/block/by-name/vbmeta              /vbmeta              emmc    defaults defaults
-/dev/block/by-name/vbmeta_system       /vbmeta_system       emmc    defaults defaults
-/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc    defaults defaults
+/dev/block/by-name/boot                /boot                emmc
+/dev/block/by-name/dtbo                /dtbo                emmc
+/dev/block/by-name/super               /super               emmc
+/dev/block/by-name/vendor_boot         /vendor_boot         emmc
+/dev/block/by-name/vbmeta              /vbmeta              emmc
+/dev/block/by-name/vbmeta_system       /vbmeta_system       emmc
+/dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc
 
 # ===============================
 # Metadata
