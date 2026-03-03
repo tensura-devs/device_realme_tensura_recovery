@@ -14,4 +14,8 @@ ro.hardware.gatekeeper=trustonic
 ro.vendor.mtk_svp_on_mtee_support=2
 ro.vendor.mtk_trustonic_tee_support=1
 
+# Disable TP firmware update on boot to reduce touch delay
+persist.vendor.tp.update.disable=1
+vendor.tp.fw.update.disable=1
+
 keymaster_ver=4.1
