@@ -8,7 +8,6 @@
 # Core Partitions
 /boot                     emmc   /dev/block/by-name/boot                         flags=backup=1;display="boot";slotselect;flashimg=1
 /dtbo                     emmc   /dev/block/by-name/dtbo                         flags=backup=1;display="dtbo";slotselect;flashimg=1
-/super                    emmc   /dev/block/by-name/super                        flags=backup=1;display="super";flashimg=1
 /vendor_boot              emmc   /dev/block/by-name/vendor_boot                  flags=backup=1;display="vendor_boot";slotselect;flashimg=1
 /vbmeta                   emmc   /dev/block/by-name/vbmeta                       flags=backup=1;display="vbmeta";slotselect;flashimg=1
 /vbmeta_system            emmc   /dev/block/by-name/vbmeta_system                flags=backup=1;display="vbmeta_system";slotselect;flashimg=1
@@ -16,19 +15,13 @@
 
 
 # Dynamic Partitions
-/system_root              emmc   /dev/block/mapper/system_a                      flags=backup=1;display="system_a";slotselect;flashimg=1
-/system_root              emmc   /dev/block/mapper/system_b                      flags=backup=1;display="system_b";slotselect;flashimg=1
-/system_ext               emmc   /dev/block/mapper/system_ext_a                  flags=backup=1;display="system_ext_a";slotselect;flashimg=1
-/system_ext               emmc   /dev/block/mapper/system_ext_b                  flags=backup=1;display="system_ext_b";slotselect;flashimg=1
-/vendor                   emmc   /dev/block/mapper/vendor_a                      flags=backup=1;display="vendor_a";slotselect;flashimg=1
-/vendor                   emmc   /dev/block/mapper/vendor_b                      flags=backup=1;display="vendor_b";slotselect;flashimg=1
-/vendor_dlkm              emmc   /dev/block/mapper/vendor_dlkm_a                 flags=backup=1;display="vendor_dlkm_a";slotselect;flashimg=1
-/vendor_dlkm              emmc   /dev/block/mapper/vendor_dlkm_b                 flags=backup=1;display="vendor_dlkm_b";slotselect;flashimg=1
-/product                  emmc   /dev/block/mapper/product_a                     flags=backup=1;display="product_a";slotselect;flashimg=1
-/product                  emmc   /dev/block/mapper/product_b                     flags=backup=1;display="product_b";slotselect;flashimg=1
-/odm                      emmc   /dev/block/mapper/odm_a                         flags=backup=1;display="odm";slotselect;flashimg=1
-/odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm_a                    flags=backup=1;display="odm_dlkm_a";slotselect;flashimg=1
-/odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm_b                    flags=backup=1;display="odm_dlkm_b";slotselect;flashimg=1
+/system_root              emmc   /dev/block/mapper/system                        flags=backup=1;display="system";slotselect;flashimg=1
+/system_ext               emmc   /dev/block/mapper/system_ext                    flags=backup=1;display="system_ext";slotselect;flashimg=1
+/vendor                   emmc   /dev/block/mapper/vendor                        flags=backup=1;display="vendor";slotselect;flashimg=1
+/vendor_dlkm              emmc   /dev/block/mapper/vendor_dlkm                   flags=backup=1;display="vendor_dlkm";slotselect;flashimg=1
+/product                  emmc   /dev/block/mapper/product                       flags=backup=1;display="product";slotselect;flashimg=1
+/odm                      emmc   /dev/block/mapper/odm                           flags=backup=1;display="odm";slotselect;flashimg=1
+/odm_dlkm                 emmc   /dev/block/mapper/odm_dlkm                      flags=backup=1;display="odm_dlkm";slotselect;flashimg=1
 
 #IMEI
 /nvram                    emmc   /dev/block/by-name/nvram                        flags=backup;display="IMEI"
