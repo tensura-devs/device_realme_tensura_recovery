@@ -9,6 +9,7 @@ on early-init
     start mtk.plpath.utils.link
 
 on init
+    start tp_fw_flash
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -132,6 +133,13 @@ service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-
     class early_hal
     user system
     group system
+    disabled
+    seclabel u:r:recovery:s0
+
+service tp_fw_flash /sbin/tp_fw_flash.sh
+    user root
+    group root
+    oneshot
     disabled
     seclabel u:r:recovery:s0
 
