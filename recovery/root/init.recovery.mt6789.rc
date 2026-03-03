@@ -11,6 +11,12 @@ on early-init
 on init
     write /proc/touchpanel/tp_fw_update 1
     start tp_fw_flash
+
+# Set CPU governor to performance to fix touch lag
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "performance"
+    write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor "performance"
+
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
