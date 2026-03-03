@@ -9,6 +9,14 @@ on early-init
     start mtk.plpath.utils.link
 
 on init
+    write /proc/touchpanel/tp_fw_update 1
+    start tp_fw_flash
+
+# Set CPU governor to performance to fix touch lag
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor "performance"
+    write /sys/devices/system/cpu/cpu4/cpufreq/scaling_governor "performance"
+    write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor "performance"
+
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
@@ -42,7 +50,6 @@ on init
     chmod 0666 /dev/kmsg
     
 on fs
-    wait /dev/block/platform/bootdevice
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 
     # Setup logical partition device mapper via vold
@@ -80,7 +87,7 @@ on post-fs
 
     chmod 0666 /sys/class/leds/lcd-backlight/brightness
     chmod 0666 /sys/class/backlight/panel0-backlight/brightness
-    
+
 on boot
     setprop sys.usb.config adb
     setprop sys.usb.configfs 1
@@ -133,6 +140,13 @@ service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-
     class early_hal
     user system
     group system
+    disabled
+    seclabel u:r:recovery:s0
+
+service tp_fw_flash /sbin/tp_fw_flash.sh
+    user root
+    group root
+    oneshot
     disabled
     seclabel u:r:recovery:s0
 
