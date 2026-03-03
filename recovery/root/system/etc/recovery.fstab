@@ -1,5 +1,5 @@
 # ===============================
-# Dynamic Partitions (logical)
+# Dynamic Partitions
 # ===============================
 vendor                                 /vendor              erofs    ro wait,logical,slotselect
 odm                                    /odm                 erofs    ro wait,logical,slotselect
@@ -20,7 +20,7 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc    defaults defaults
 
 # ===============================
-# Metadata (WAJIB untuk FBE decrypt)
+# Metadata
 # ===============================
 /dev/block/by-name/metadata            /metadata            ext4    noatime,nosuid,nodev,discard     display="Metadata",wait,check,formattable
 # ===============================
