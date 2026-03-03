@@ -8,6 +8,16 @@ vendor_dlkm                            /vendor_dlkm         ext4     ro wait,log
 product                                /product             ext4     ro wait,logical,slotselect
 system_ext                             /system_ext          erofs    ro wait,logical,slotselect
 odm_dlkm                               /odm_dlkm            ext4     ro wait,logical,slotselect
+my_product                             /my_product          erofs    ro wait,slotselect,logical
+my_engineering                         /my_engineering      erofs    ro wait,slotselect,logical
+my_company                             /my_company          erofs    ro wait,slotselect,logical
+my_carrier                             /my_carrier          erofs    ro wait,slotselect,logical
+my_region                              /my_region           erofs    ro wait,slotselect,logical
+my_heytap                              /my_heytap           erofs    ro wait,slotselect,logical
+my_stock                               /my_stock            erofs    ro wait,slotselect,logical
+my_preload                             /my_preload          erofs    ro wait,slotselect,logical
+my_bigball                             /my_bigball          erofs    ro wait,slotselect,logical
+my_manifest                            /my_manifest         erofs    ro wait,slotselect,logical
 
 # ===============================
 # Raw Partitions
@@ -19,6 +29,26 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 /dev/block/by-name/vbmeta              /vbmeta              emmc
 /dev/block/by-name/vbmeta_system       /vbmeta_system       emmc
 /dev/block/by-name/vbmeta_vendor       /vbmeta_vendor       emmc
+/dev/block/by-name/tee1                /tee1                emmc
+/dev/block/by-name/tee2                /tee2                emmc
+/dev/block/by-name/sspm_1              /sspm_1              emmc
+/dev/block/by-name/sspm_2              /sspm_2              emmc
+/dev/block/by-name/md1img              /md1img              emmc
+/dev/block/by-name/pi_img              /pi_img              emmc
+/dev/block/by-name/dpm_1               /dpm_1               emmc
+/dev/block/by-name/dpm_2               /dpm_2               emmc
+/dev/block/by-name/scp1                /scp1                emmc
+/dev/block/by-name/scp2                /scp2                emmc
+/dev/block/by-name/lk                  /bootloader          emmc
+/dev/block/by-name/lk2                 /bootloader2         emmc
+/dev/block/by-name/mcupm_1             /mcupm_1             emmc
+/dev/block/by-name/mcupm_2             /mcupm_2             emmc
+/dev/block/by-name/odmdtbo             /odmdtbo             emmc
+/dev/block/by-name/dtbo                /dtbo                emmc
+/dev/block/by-name/gz1                 /gz1                 emmc
+/dev/block/by-name/gz2                 /gz2                 emmc
+/dev/block/by-name/spmfw               /spmfw               emmc
+/dev/block/by-name/cdt_engineering     /cdt_engineering     emmc
 
 # ===============================
 # Metadata (WAJIB untuk FBE decrypt)
