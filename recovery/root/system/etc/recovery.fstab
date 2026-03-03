@@ -14,7 +14,6 @@ odm_dlkm                               /odm_dlkm            ext4     ro wait,log
 # ===============================
 /dev/block/by-name/boot                /boot                emmc
 /dev/block/by-name/dtbo                /dtbo                emmc
-/dev/block/by-name/super               /super               emmc
 /dev/block/by-name/vendor_boot         /vendor_boot         emmc
 /dev/block/by-name/vbmeta              /vbmeta              emmc
 /dev/block/by-name/vbmeta_system       /vbmeta_system       emmc
