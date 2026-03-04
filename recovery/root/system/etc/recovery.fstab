@@ -51,7 +51,7 @@ my_manifest                            /my_manifest         erofs    ro wait,slo
 /dev/block/by-name/cdt_engineering     /cdt_engineering     emmc
 
 # ===============================
-# Metadata (WAJIB untuk FBE decrypt)
+# Metadata
 # ===============================
 /dev/block/by-name/metadata            /metadata            ext4    noatime,nosuid,nodev,discard     display="Metadata",wait,check,formattable
 # ===============================
