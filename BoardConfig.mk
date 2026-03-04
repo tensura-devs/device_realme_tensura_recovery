@@ -197,8 +197,8 @@ TW_NO_CPU_TEMP := true
 TW_DELAY_TOUCH_INIT_MS := 500
 TW_NO_HAPTICS := true
 TW_INPUT_BLACKLIST := "nt36672c ilitek7807s synaptics-s3910"
-TW_Y_OFFSET := 91
-TW_H_OFFSET := -91
+TW_Y_OFFSET := -52
+TW_H_OFFSET := 52
 
 # Ensure touch input works properly in recovery
 RECOVERY_TOUCHSCREEN_SWAP_XY := false
