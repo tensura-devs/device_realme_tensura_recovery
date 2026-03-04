@@ -193,7 +193,6 @@ TW_INCLUDE_LIBRESETPROP :=true
 TW_INCLUDE_REPACKTOOLS := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /config/usb_gadget/g1/functions/mass_storage.usb0/lun.%d/file
 TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
-TW_NO_CPU_TEMP := true
 TW_DELAY_TOUCH_INIT_MS := 500
 TW_NO_HAPTICS := true
 TW_INPUT_BLACKLIST := "nt36672c ilitek7807s synaptics-s3910"
