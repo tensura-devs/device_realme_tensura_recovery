@@ -117,12 +117,14 @@ on boot
 
 service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
+    interface android.hardware.health@2.0::IHealth default
     override
     class hal
     user system
     group system
     capabilities WAKE_ALARM BLOCK_SUSPEND
     file /dev/kmsg w
+    seclabel u:r:recovery:s0
 
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
