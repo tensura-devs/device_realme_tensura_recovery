@@ -196,7 +196,8 @@ TW_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 TW_DELAY_TOUCH_INIT_MS := 500
 TW_NO_HAPTICS := true
 TW_INPUT_BLACKLIST := "nt36672c ilitek7807s synaptics-s3910"
-TW_CUSTOM_CPU_TEMP_PATH := true
+TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone28/temp
+TW_CUSTOM_BATTERY_PATH  := /sys/class/power_supply/battery
 
 # Ensure touch input works properly in recovery
 RECOVERY_TOUCHSCREEN_SWAP_XY := false
