@@ -66,5 +66,5 @@ my_manifest                            /my_manifest         erofs    ro wait,slo
 # ===============================
 # External
 # ===============================
-/dev/block/mmcblk0p1                   /external_sd         auto    defaults display="MicroSD";removable;storage
-/dev/block/sdd1                        /usb_otg             auto    defaults display="USB OTG";removable;storage
+/dev/block/mmcblk0p1                   /external_sd         auto    defaults display="MicroSD",removable,storage
+/dev/block/sdd1                        /usb_otg             auto    defaults display="USB OTG",removable,storage
