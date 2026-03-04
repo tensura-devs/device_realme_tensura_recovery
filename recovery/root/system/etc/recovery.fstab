@@ -62,3 +62,5 @@ my_manifest                            /my_manifest         erofs    ro wait,slo
 # Core
 # ===============================
 /dev/block/by-name/persist             /persist             ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
+
+/dev/block/sdd1                        /usb_otg             vfat    defaults  recoveryonly,removable,storage,nofail
