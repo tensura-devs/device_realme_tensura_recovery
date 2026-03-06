@@ -21,7 +21,7 @@ on init
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib
-    
+
     mkdir /boot
     mkdir /recovery
     mkdir /system 0771 root root
@@ -29,26 +29,30 @@ on init
     mkdir /data
     mkdir /metadata
     mkdir /cache
-    
+
     mkdir /mnt 0755 root root
     mkdir /mnt/vendor 0755 root root
     mkdir /mnt/vendor/persist 0771 root root
     mkdir /mnt/vendor/protect_f 0771 root root
     mkdir /mnt/vendor/protect_s 0771 root root
-    
+
     mkdir /nvdata 0771 root root
     mkdir /nvcfg 0771 root root
-    
+
     symlink /system/bin /bin
     symlink /system/etc /etc
 
     mkdir /dev/block
     mkdir /dev/block/platform
     mkdir /dev/block/by-name
-    
+
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
-    
+
+    # Start hwservicemanager early so boot HAL can register
+    start hwservicemanager
+    start vndservicemanager
+
 on fs
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 
@@ -71,6 +75,9 @@ on fs
 
     # Start mobicore SEBELUM keymint
     start mobicore
+
+    # Start boot HAL after partitions are ready
+    start vendor.boot_hal
 
 on post-fs
     # Permissions persist untuk mobicore
@@ -115,6 +122,36 @@ on boot
 
     start health-hal-2-1
 
+# ─── hwservicemanager ────────────────────────────────────────────────────────
+service hwservicemanager /system/bin/hwservicemanager
+    user root
+    group root
+    disabled
+    onrestart setprop hwservicemanager.ready false
+    writepid /dev/cpuset/system-background/tasks
+    seclabel u:r:recovery:s0
+
+# ─── vndservicemanager ───────────────────────────────────────────────────────
+service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
+    user root
+    group root readproc
+    writepid /dev/cpuset/system-background/tasks
+    shutdown critical
+    disabled
+    seclabel u:r:recovery:s0
+
+# ─── Boot HAL (IBootControl) ─────────────────────────────────────────────────
+service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service-mtkimpl
+    interface android.hardware.boot@1.0::IBootControl default
+    interface android.hardware.boot@1.1::IBootControl default
+    interface android.hardware.boot@1.2::IBootControl default
+    class hal
+    user root
+    group root
+    disabled
+    seclabel u:r:recovery:s0
+
+# ─── Health HAL ───────────────────────────────────────────────────────────────
 service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
     interface android.hardware.health@2.0::IHealth default
@@ -126,6 +163,7 @@ service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     file /dev/kmsg w
     seclabel u:r:recovery:s0
 
+# ─── Gatekeeper ──────────────────────────────────────────────────────────────
 service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     interface android.hardware.gatekeeper@1.0::IGatekeeper default
     class hal
@@ -133,6 +171,7 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     group system
     disabled
 
+# ─── Keystore & KeyMint ──────────────────────────────────────────────────────
 service keystore2 /system/bin/keystore2 /tmp/misc/keystore
     class early_hal
     user root
@@ -146,6 +185,7 @@ service vendor.keymint-default /vendor/bin/hw/android.hardware.security.keymint-
     disabled
     seclabel u:r:recovery:s0
 
+# ─── Touch firmware ──────────────────────────────────────────────────────────
 service tp_fw_flash /sbin/tp_fw_flash.sh
     user root
     group root
