@@ -114,12 +114,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img \
-    $(LOCAL_PATH)/recovery/root/system/bin/tp_fw_flash.sh:$(TARGET_COPY_OUT_RECOVERY)/root/sbin/tp_fw_flash.sh \
-    $(LOCAL_PATH)/recovery/root/vendor/bin/hw/android.hardware.boot@1.2-service:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/bin/hw/android.hardware.boot@1.2-service \
-    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.0.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.0.so \
-    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.1.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.1.so \
-    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.2.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.2.so \
-    $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so
+    $(LOCAL_PATH)/recovery/root/system/bin/tp_fw_flash.sh:$(TARGET_COPY_OUT_RECOVERY)/root/sbin/tp_fw_flash.sh
 
 # Copy init scripts to recovery & Services libraries
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
