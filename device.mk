@@ -18,7 +18,7 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 
-# Bootctrl - include @1.0 fallback agar hwservicemanager bisa resolve IBootControl/default
+# Bootctrl
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-impl.recovery \
@@ -109,13 +109,17 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libkeymaster4_1support \
     libkeymaster41 \
     libteec \
-    android.hardware.boot@1.2-mtkimpl \
     init.recovery.mt6789.rc \
     init.recovery.logd.rc
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/recovery/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG_FAE.img:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/firmware/tp/140956/FW_FT3518_SAMSUNG.img \
-    $(LOCAL_PATH)/recovery/root/system/bin/tp_fw_flash.sh:$(TARGET_COPY_OUT_RECOVERY)/root/sbin/tp_fw_flash.sh
+    $(LOCAL_PATH)/recovery/root/system/bin/tp_fw_flash.sh:$(TARGET_COPY_OUT_RECOVERY)/root/sbin/tp_fw_flash.sh \
+    $(LOCAL_PATH)/recovery/root/vendor/bin/hw/android.hardware.boot@1.2-service:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/bin/hw/android.hardware.boot@1.2-service \
+    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.0.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.0.so \
+    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.1.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.1.so \
+    $(LOCAL_PATH)/recovery/root/vendor/lib64/android.hardware.boot@1.2.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/android.hardware.boot@1.2.so \
+    $(LOCAL_PATH)/recovery/root/vendor/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so:$(TARGET_COPY_OUT_RECOVERY)/root/vendor/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so
 
 # Copy init scripts to recovery & Services libraries
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
@@ -124,6 +128,4 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster41.so \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster4_1support.so \
-    $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service \
-    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so \
-    $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.boot@1.2-service-mtkimpl
+    $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service
