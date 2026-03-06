@@ -39,6 +39,14 @@ TARGET_USES_UEFI := true
 # Platform
 TARGET_BOARD_PLATFORM := mt6789
 
+# Bootcontrol
+TARGET_RECOVERY_DEVICE_MODULES += \
+    android.hardware.boot@1.2-mtkimpl \
+    android.hardware.boot@1.2-mtkimpl.recovery
+
+RECOVERY_LIBRARY_SOURCE_FILES += \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so
+
 # Kernel
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
