@@ -18,16 +18,13 @@ PRODUCT_USE_DYNAMIC_PARTITIONS := true
 ENABLE_VIRTUAL_AB := true
 $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
 
-# Bootctrl
+# Bootctrl - include @1.0 fallback agar hwservicemanager bisa resolve IBootControl/default
 PRODUCT_PACKAGES += \
     android.hardware.boot@1.0-impl \
     android.hardware.boot@1.0-impl.recovery \
     android.hardware.boot@1.2-mtkimpl \
     android.hardware.boot@1.2-mtkimpl.recovery \
     bootctrl
-
-#PRODUCT_PACKAGES_DEBUG += \
- #   bootctrl
 
 # Fastbootd
 PRODUCT_PACKAGES += \
@@ -112,6 +109,7 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libkeymaster4_1support \
     libkeymaster41 \
     libteec \
+    android.hardware.boot@1.2-mtkimpl \
     init.recovery.mt6789.rc \
     init.recovery.logd.rc
 
@@ -127,4 +125,5 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster4_1support.so \
     $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service \
-    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so \
+    $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.boot@1.2-service-mtkimpl
