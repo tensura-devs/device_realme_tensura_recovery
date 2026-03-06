@@ -141,7 +141,7 @@ service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
     seclabel u:r:recovery:s0
 
 # ─── Boot HAL (IBootControl) ─────────────────────────────────────────────────
-service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service-mtkimpl
+service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service
     interface android.hardware.boot@1.0::IBootControl default
     interface android.hardware.boot@1.1::IBootControl default
     interface android.hardware.boot@1.2::IBootControl default
