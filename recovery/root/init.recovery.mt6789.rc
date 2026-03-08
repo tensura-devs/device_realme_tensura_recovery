@@ -20,7 +20,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib64/hw:/vendor/lib64/hw:/system/lib:/vendor/lib
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib
     
     mkdir /boot
     mkdir /recovery
@@ -49,7 +49,7 @@ on init
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
 
-    # Start hwservicemanager early so IBootControl can register
+    # Start hwservicemanager early agar boot-mtk bisa register IBootControl
     start hwservicemanager
     start vndservicemanager
 
@@ -76,8 +76,8 @@ on fs
     # Start mobicore SEBELUM keymint
     start mobicore
 
-    # Start boot HAL setelah partisi ready
-    start vendor.boot_hal
+    # Start boot HAL - gunakan boot-mtk dari system (sudah include di recovery image)
+    start boot-mtk
 
 on post-fs
     # Permissions persist untuk mobicore
@@ -137,17 +137,6 @@ service vndservicemanager /system/bin/vndservicemanager /dev/vndbinder
     group root readproc
     writepid /dev/cpuset/system-background/tasks
     shutdown critical
-    disabled
-    seclabel u:r:recovery:s0
-
-# ─── Boot HAL (IBootControl) ─────────────────────────────────────────────────
-service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service
-    interface android.hardware.boot@1.0::IBootControl default
-    interface android.hardware.boot@1.1::IBootControl default
-    interface android.hardware.boot@1.2::IBootControl default
-    class hal
-    user root
-    group root
     disabled
     seclabel u:r:recovery:s0
 
