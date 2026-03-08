@@ -20,7 +20,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib:/vendor/lib
+    export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/system/lib64/hw:/vendor/lib64/hw:/system/lib:/vendor/lib
     
     mkdir /boot
     mkdir /recovery
@@ -122,6 +122,7 @@ on boot
 
     start health-hal-2-1
 
+# ─── hwservicemanager ────────────────────────────────────────────────────────
 service hwservicemanager /system/bin/hwservicemanager
     user root
     group root
@@ -130,7 +131,8 @@ service hwservicemanager /system/bin/hwservicemanager
     writepid /dev/cpuset/system-background/tasks
     seclabel u:r:recovery:s0
 
-service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
+# ─── vndservicemanager ───────────────────────────────────────────────────────
+service vndservicemanager /system/bin/vndservicemanager /dev/vndbinder
     user root
     group root readproc
     writepid /dev/cpuset/system-background/tasks
@@ -138,6 +140,7 @@ service vndservicemanager /vendor/bin/vndservicemanager /dev/vndbinder
     disabled
     seclabel u:r:recovery:s0
 
+# ─── Boot HAL (IBootControl) ─────────────────────────────────────────────────
 service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service
     interface android.hardware.boot@1.0::IBootControl default
     interface android.hardware.boot@1.1::IBootControl default
@@ -148,6 +151,7 @@ service vendor.boot_hal /vendor/bin/hw/android.hardware.boot@1.2-service
     disabled
     seclabel u:r:recovery:s0
 
+# ─── Health HAL ──────────────────────────────────────────────────────────────
 service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
     interface android.hardware.health@2.0::IHealth default
