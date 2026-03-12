@@ -53,12 +53,13 @@ my_manifest                            /my_manifest         erofs    ro wait,slo
 # Metadata
 # ===============================
 /dev/block/by-name/metadata            /metadata            ext4    noatime,nosuid,nodev,discard     display="Metadata",wait,check,formattable
-# ===============================
-# Userdata
-# ===============================
-/dev/block/by-name/userdata            /data                f2fs    noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,resize,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption
 
 # ===============================
-# Core
+# Userdata - FIX: Tambahkan flags untuk FBE
+# ===============================
+/dev/block/by-name/userdata            /data                f2fs    noatime,nosuid,nodev,discard,noflush_merge,fsync_mode=nobarrier,reserve_root=134217,resgid=1065,inlinecrypt wait,check,formattable,quota,resize,fileencryption=aes-256-xts:aes-256-cts:v2+inlinecrypt_optimized,keydirectory=/metadata/vold/metadata_encryption,wrappedkey
+
+# ===============================
+# Persist - FIX: Tambahkan formattable
 # ===============================
 /dev/block/by-name/persist             /persist             ext4    noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc wait,check,formattable
