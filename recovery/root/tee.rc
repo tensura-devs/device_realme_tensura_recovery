@@ -13,6 +13,9 @@ on post-fs
     mkdir /mnt/vendor/persist/mcRegistry 0771 system system
     chown system system /mnt/vendor/persist/mcRegistry/Store_1.tf
 
+    # Create camera to store camera info
+    mkdir /mnt/vendor/persist/camera 0775 system system
+
 on post-fs-data
     # Create /data/vendor/key_provisioning dir and get proper encryption policy installed
     # Key Installation

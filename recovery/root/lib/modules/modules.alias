@@ -81,8 +81,6 @@ alias of:N*T*Cmediatek,mt8183-pwrap mtk_pmic_wrap
 alias of:N*T*Cmediatek,mt8183-pwrapC* mtk_pmic_wrap
 alias of:N*T*Cmediatek,mt8516-pwrap mtk_pmic_wrap
 alias of:N*T*Cmediatek,mt8516-pwrapC* mtk_pmic_wrap
-alias of:N*T*Coplus22281_samsung_ams643ag01_1080p_dsi_vdo,lcm oplus22281_samsung_ams643ag01_1080p_dsi_vdo
-alias of:N*T*Coplus22281_samsung_ams643ag01_1080p_dsi_vdo,lcmC* oplus22281_samsung_ams643ag01_1080p_dsi_vdo
 alias of:N*T*Cmediatek,mt2712-i2c i2c_mt65xx
 alias of:N*T*Cmediatek,mt2712-i2cC* i2c_mt65xx
 alias of:N*T*Cmediatek,mt6577-i2c i2c_mt65xx
@@ -138,8 +136,6 @@ alias of:N*T*Cmediatek,mt6895-spmi spmi_mtk_pmif
 alias of:N*T*Cmediatek,mt6895-spmiC* spmi_mtk_pmif
 alias of:N*T*Cmediatek,mt6983-spmi spmi_mtk_pmif
 alias of:N*T*Cmediatek,mt6983-spmiC* spmi_mtk_pmif
-alias of:N*T*Csamsung,ana6705,cmd,fhdp panel_samsung_ana6705_cmd_fhdp
-alias of:N*T*Csamsung,ana6705,cmd,fhdpC* panel_samsung_ana6705_cmd_fhdp
 alias of:N*T*Cmediatek,mtk_ctd mtk_chg_type_det
 alias of:N*T*Cmediatek,mtk_ctdC* mtk_chg_type_det
 alias of:N*T*Cmediatek,charger,pe2 mtk_pep20
@@ -237,8 +233,6 @@ alias of:N*T*Cmediatek,mt6373C* mtk_spmi_pmic
 alias of:N*T*Cmediatek,scpsys-disable-unused mtk_pm_domain_disable_unused
 alias of:N*T*Cmediatek,scpsys-disable-unusedC* mtk_pm_domain_disable_unused
 alias platform:mt6368-regulator mt6368_regulator
-alias of:N*T*Ctianma,r66451,cmd,120hz panel_tianma_r66451_cmd_120hz
-alias of:N*T*Ctianma,r66451,cmd,120hzC* panel_tianma_r66451_cmd_120hz
 alias of:N*T*Cmediatek,pbm mtk_pbm
 alias of:N*T*Cmediatek,pbmC* mtk_pbm
 alias i2c:sgm7220 tcpc_sgm7220
@@ -660,12 +654,8 @@ alias of:N*T*Coplus2269C_samsung_ams643ag01_1080p_dsi_cmd,lcm oplus2269C_samsung
 alias of:N*T*Coplus2269C_samsung_ams643ag01_1080p_dsi_cmd,lcmC* oplus2269C_samsung_ams643ag01_1080p_dsi_cmd
 alias of:N*T*Cmediatek,mt8183-ufsphy phy_mtk_ufs
 alias of:N*T*Cmediatek,mt8183-ufsphyC* phy_mtk_ufs
-alias of:N*T*Ctruly,td4330,cmd panel_truly_td4330_cmd
-alias of:N*T*Ctruly,td4330,cmdC* panel_truly_td4330_cmd
 alias of:N*T*Cmediatek,mt6375-tcpc tcpc_mt6375
 alias of:N*T*Cmediatek,mt6375-tcpcC* tcpc_mt6375
-alias of:N*T*Cjdi,nt36672e,cphy,vdo panel_alpha_jdi_nt36672e_cphy_vdo
-alias of:N*T*Cjdi,nt36672e,cphy,vdoC* panel_alpha_jdi_nt36672e_cphy_vdo
 alias char-major-21-* sg
 alias of:N*T*Cmediatek,clk-disable-unused clk_disable_unused
 alias of:N*T*Cmediatek,clk-disable-unusedC* clk_disable_unused
@@ -741,8 +731,6 @@ alias of:N*T*Carm,sec-rng sec_rng
 alias of:N*T*Carm,sec-rngC* sec_rng
 alias of:N*T*Cmediatek,mt6375-chg mt6375_charger
 alias of:N*T*Cmediatek,mt6375-chgC* mt6375_charger
-alias of:N*T*Cjdi,nt36672e,vdo,120hz,hfp panel_alpha_jdi_nt36672e_vdo_120hz_hfp
-alias of:N*T*Cjdi,nt36672e,vdo,120hz,hfpC* panel_alpha_jdi_nt36672e_vdo_120hz_hfp
 alias net-pf-16-proto-16-family-nl80211 cfg80211
 alias of:N*T*Coplus-nfc-chipset oplus_nfc
 alias of:N*T*Coplus-nfc-chipsetC* oplus_nfc
@@ -810,6 +798,8 @@ alias of:N*T*Cusb-nop-xceiv phy_generic
 alias of:N*T*Cusb-nop-xceivC* phy_generic
 alias of:N*T*Cmediatek,usb_boost musb_boost
 alias of:N*T*Cmediatek,usb_boostC* musb_boost
+alias of:N*T*Coplus,oplus-thermal oplus_ipa_thermal
+alias of:N*T*Coplus,oplus-thermalC* oplus_ipa_thermal
 alias of:N*T*Cmediatek,mt6983-mml mtk_mml
 alias of:N*T*Cmediatek,mt6983-mmlC* mtk_mml
 alias of:N*T*Cmediatek,mt6893-mml mtk_mml
@@ -903,6 +893,7 @@ alias of:N*T*Carm,dsu-pmuC* arm_dsu_pmu
 alias i2c:nu1619-charger oplus_chg
 alias i2c:chargepump-charger oplus_chg
 alias platform:oplus-optiga oplus_chg
+alias i2c:bob-tps6128xd oplus_chg
 alias i2c:oplus_short-ic oplus_chg
 alias i2c:bq27541-battery oplus_chg
 alias i2c:stm8s-fastcg oplus_chg
@@ -915,6 +906,9 @@ alias i2c:chgpump-charger oplus_chg
 alias of:N*T*Coplus-optiga oplus_chg
 alias of:N*T*Coplus-optigaC* oplus_chg
 alias i2c:oplus,sc8547a-ufcs oplus_chg
+alias i2c:oplus,sc2201-ufcs oplus_chg
+alias i2c:oplus,nu2112a-ufcs oplus_chg
+alias i2c:bob-tps6128xd oplus_chg
 alias of:N*T*Cmediatek,charger oplus_chg
 alias of:N*T*Cmediatek,chargerC* oplus_chg
 alias of:N*T*Cti,bq25890h oplus_chg
@@ -926,6 +920,9 @@ alias of:N*T*Cti,bq25895C* oplus_chg
 alias i2c:bq25890h oplus_chg
 alias i2c:bq25892 oplus_chg
 alias i2c:bq25895 oplus_chg
+alias of:N*T*Coplus,sgm41512 oplus_chg
+alias of:N*T*Coplus,sgm41512C* oplus_chg
+alias i2c:sgm41512 oplus_chg
 alias of:N*T*Cmediatek,mt6323 mt6397
 alias of:N*T*Cmediatek,mt6323C* mt6397
 alias of:N*T*Cmediatek,mt6357 mt6397
@@ -975,8 +972,6 @@ alias of:N*T*Cmediatek,mt6358-auxadc mt635x_auxadc
 alias of:N*T*Cmediatek,mt6358-auxadcC* mt635x_auxadc
 alias of:N*T*Cmediatek,mt6359p-auxadc mt635x_auxadc
 alias of:N*T*Cmediatek,mt6359p-auxadcC* mt635x_auxadc
-alias of:N*T*Coplus22281_samsung_ams643ag01_1080p_dsi_cmd,lcm oplus22281_samsung_ams643ag01_1080p_dsi_cmd
-alias of:N*T*Coplus22281_samsung_ams643ag01_1080p_dsi_cmd,lcmC* oplus22281_samsung_ams643ag01_1080p_dsi_cmd
 alias of:N*T*Cmediatek,mt63xx-debug mt63xx_debug
 alias of:N*T*Cmediatek,mt63xx-debugC* mt63xx_debug
 alias of:N*T*Cmediatek,mt6873-mdpm mtk_mdpm
