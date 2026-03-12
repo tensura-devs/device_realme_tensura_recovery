@@ -8,6 +8,12 @@ on early-init
     start ueventd
     start healthd
 
+    # FIX #1: Set USB properties lebih awal untuk mencegah ADB restart loop
+    setprop service.adb.root 1
+    setprop sys.usb.configfs 1
+    setprop sys.usb.controller "musb-hdrc"
+    setprop sys.usb.ffs.aio_compat 1
+
 on init
     write /proc/touchpanel/tp_fw_update 1
     start tp_fw_flash
@@ -20,7 +26,7 @@ on init
     export ANDROID_ROOT /system
     export ANDROID_DATA /data
     export EXTERNAL_STORAGE /sdcard
-    # FIX #1: Tambah /vendor/lib64/hw agar impl .so bisa ditemukan saat dlopen
+    # FIX: Tambah /vendor/lib64/hw agar impl .so bisa ditemukan saat dlopen
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw
 
     mkdir /boot
@@ -50,18 +56,19 @@ on init
     chmod 0666 /dev/null
     chmod 0666 /dev/kmsg
 
-    # FIX #2: Mount persist lebih awal di init (seperti orang lain)
-    # agar Trustonic/mobicore bisa akses mcRegistry lebih cepat
-    chown system system /mnt/vendor/persist
-    chmod 0771 /mnt/vendor/persist
-    restorecon /mnt/vendor/persist
-    mount ext4 /dev/block/by-name/persist /mnt/vendor/persist rw
+    # FIX #2: Mount persist LEBIH AWAL di init (sebelum mobicore)
+    wait /dev/block/by-name/persist
     mount ext4 /dev/block/by-name/persist /persist rw
+    chown system system /persist
+    chmod 0771 /persist
+    restorecon /persist
+
+    # Create mcRegistry untuk Trustonic
+    mkdir /persist/mcRegistry 0771 root root
+    chmod 0771 /persist/mcRegistry
+    symlink /persist/mcRegistry /mnt/vendor/persist/mcRegistry
 
     setprop crypto.ready 1
-    setprop sys.usb.configfs 1
-    setprop sys.usb.controller "musb-hdrc"
-    setprop sys.usb.ffs.aio_compat 1
 
 on fs
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
@@ -69,7 +76,7 @@ on fs
     # Setup logical partition device mapper via vold
     exec /vendor/bin/hw/vold --blkid-context=u:r:blkid:s0 --blkid-untrusted-context=u:r:blkid_untrusted:s0 --fsck-context=u:r:fsck:s0 --fsck-untrusted-context=u:r:fsck_untrusted:s0 || true
 
-    # Mount metadata untuk FBE
+    # Mount metadata untuk FBE (PENTING!)
     wait /dev/block/by-name/metadata
     mount ext4 /dev/block/by-name/metadata /metadata nosuid nodev noatime discard
 
@@ -84,13 +91,11 @@ on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
 
 on post-fs
     # Permissions persist untuk mobicore
-    chown system system /mnt/vendor/persist
-    chmod 0771 /mnt/vendor/persist
-    mkdir /mnt/vendor/persist/mcRegistry 0771 system system
+    chown system system /persist
+    chmod 0771 /persist
+    mkdir /persist/mcRegistry 0771 system system
 
-    # FIX #3: START BOOT-MTK (KUNCI UTAMA yang hilang di file kamu!)
-    # Binary: /system/bin/android.hardware.boot-service.mtk
-    # RC sudah ada di /system/etc/init/android.hardware.boot-service.mtk.rc
+    # FIX #3: START BOOT-MTK
     start boot-mtk
 
     # MTK platform path utils
@@ -123,18 +128,22 @@ on property:vendor.mtk.boot1_linkb=1
 on property:vendor.mtk.boot1_linkc=1
     symlink /dev/block/sdc /dev/block/mmcblk0boot1
 
-# FIX #4: Start mobicore + keymint HANYA setelah hwservicemanager ready
-# (bukan di on fs yang terlalu awal → menyebabkan race condition & crash)
+# FIX #4: Start services HANYA setelah hwservicemanager ready
 on property:hwservicemanager.ready=true
+    # Start boot-mtk DULU
+    start boot-mtk
+    # Kemudian start mobicore
     start mobicore
+    # Start gatekeeper dan keymint
     start gatekeeper-1-0
     start vendor.keymint-trustonic
 
 # FIX #5: Fallback trigger crypto.ready
 on property:crypto.ready=1
+    start mobicore
     start vendor.keymint-trustonic
 
-# FIX #6: Stop semua services setelah decrypt selesai
+# FIX #6: Stop services setelah decrypt selesai
 on property:ro.crypto.state=unsupported
     stop mobicore
     stop gatekeeper-1-0
@@ -216,6 +225,15 @@ on property:ro.twrp.fastbootd=1
 # SERVICE DEFINITIONS
 # ============================================================
 
+# FIX #7: ADB Service dengan definisi yang benar
+service adbd /sbin/adbd --root_seclabel=u:r:su:s0
+    class core
+    user root
+    group root
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
 service health-hal-2-1 /vendor/bin/hw/android.hardware.health@2.1-service
     interface android.hardware.health@2.1::IHealth default
     interface android.hardware.health@2.0::IHealth default
@@ -232,6 +250,7 @@ service gatekeeper-1-0 /vendor/bin/hw/android.hardware.gatekeeper@1.0-service
     user root
     group root
     disabled
+    oneshot
     seclabel u:r:recovery:s0
 
 service keystore2 /system/bin/keystore2 /tmp/misc/keystore
@@ -240,12 +259,13 @@ service keystore2 /system/bin/keystore2 /tmp/misc/keystore
     group root system
     disabled
 
-# FIX #7: Nama service "vendor.keymint-trustonic" sesuai binary trustonic
-# (file kamu pakai nama "vendor.keymint-default" yang tidak match)
+# FIX #8: vendor.keymint-trustonic dengan oneshot
 service vendor.keymint-trustonic /vendor/bin/hw/android.hardware.security.keymint-service.trustonic
     class early_hal
-    user nobody
+    user root
+    group root system
     disabled
+    oneshot
     seclabel u:r:recovery:s0
 
 service vendor.vibrator-default /vendor/bin/hw/android.hardware.vibrator-service.mediatek
@@ -272,6 +292,15 @@ service mtk.plpath.utils.link /system/bin/mtk_plpath_utils
 service modules_mount /system/bin/modules_mount.sh
     user root
     group root
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+# FIX #9: boot-mtk service dengan oneshot
+service boot-mtk /system/bin/android.hardware.boot-service.mtk
+    class hal
+    user root
+    group root system
     disabled
     oneshot
     seclabel u:r:recovery:s0
