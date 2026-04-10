@@ -1,0 +1,220 @@
+name: Build TWRP Recovery
+
+on:
+  push:
+    branches:
+      - twrp-12.1-C.20-v2
+  pull_request:
+    branches:
+      - twrp-12.1-C.20-v2
+  workflow_dispatch:
+    inputs:
+      MANIFEST_BRANCH:
+        description: 'TWRP Manifest Branch'
+        required: true
+        default: 'twrp-12.1'
+        type: choice
+        options:
+          - twrp-12.1
+          - twrp-12.0
+      DEVICE_TREE_URL:
+        description: 'Device Tree URL'
+        required: true
+        default: 'https://github.com/tensura-devs/device_realme_tensura_recovery'
+      DEVICE_TREE_BRANCH:
+        description: 'Device Tree Branch'
+        required: true
+        default: 'twrp-12.1-C.20-v2'
+      DEVICE_PATH:
+        description: 'Device Path'
+        required: true
+        default: 'device/realme/RMX3630'
+      DEVICE_NAME:
+        description: 'Device Codename'
+        required: true
+        default: 'RMX3630'
+      BUILD_TARGET:
+        description: 'Build Target'
+        required: true
+        default: 'vendorboot'
+
+jobs:
+  build:
+    name: Build TWRP by ${{ github.actor }}
+    runs-on: ubuntu-20.04
+    if: github.event_name == 'workflow_dispatch'
+    env:
+      MANIFEST_BRANCH: ${{ github.event.inputs.MANIFEST_BRANCH }}
+      DEVICE_TREE_URL: ${{ github.event.inputs.DEVICE_TREE_URL }}
+      DEVICE_TREE_BRANCH: ${{ github.event.inputs.DEVICE_TREE_BRANCH }}
+      DEVICE_PATH: ${{ github.event.inputs.DEVICE_PATH }}
+      DEVICE_NAME: ${{ github.event.inputs.DEVICE_NAME }}
+      BUILD_TARGET: ${{ github.event.inputs.BUILD_TARGET }}
+
+    steps:
+      # ──────────────────────────────────────────
+      # 1. Checkout (opsional, untuk akses file repo)
+      # ──────────────────────────────────────────
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # ──────────────────────────────────────────
+      # 2. Setup environment
+      # ──────────────────────────────────────────
+      - name: Set Swap Space (12GB)
+        uses: pierotofy/set-swap-space@master
+        with:
+          swap-size-gb: 12
+
+      - name: Setup Build Environment
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            bc bison build-essential ccache curl flex \
+            g++-multilib gcc-multilib git gnupg gperf imagemagick \
+            lib32ncurses5-dev lib32readline-dev lib32z1-dev \
+            liblz4-tool libncurses5 libncurses5-dev libsdl1.2-dev \
+            libssl-dev libwxgtk3.0-gtk3-dev libxml2 libxml2-utils \
+            lzop pngcrush rsync schedtool squashfs-tools xsltproc \
+            zip zlib1g-dev python3 python-is-python3 repo git-lfs
+
+      # ──────────────────────────────────────────
+      # 3. Configure Git
+      # ──────────────────────────────────────────
+      - name: Configure Git Identity
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      # ──────────────────────────────────────────
+      # 4. Setup CCache
+      # ──────────────────────────────────────────
+      - name: Setup CCache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-twrp-${{ env.DEVICE_NAME }}-${{ github.sha }}
+          restore-keys: |
+            ccache-twrp-${{ env.DEVICE_NAME }}-
+
+      - name: Configure CCache
+        run: |
+          ccache -M 10G
+          echo "USE_CCACHE=1" >> $GITHUB_ENV
+          echo "CCACHE_EXEC=$(which ccache)" >> $GITHUB_ENV
+
+      # ──────────────────────────────────────────
+      # 5. Inisialisasi TWRP manifest
+      # ──────────────────────────────────────────
+      - name: Initialize TWRP Manifest
+        run: |
+          mkdir -p ~/twrp-workspace
+          cd ~/twrp-workspace
+          repo init \
+            --depth=1 \
+            -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git \
+            -b ${{ env.MANIFEST_BRANCH }}
+
+      # ──────────────────────────────────────────
+      # 6. Clone device tree ke manifest local
+      # ──────────────────────────────────────────
+      - name: Add Device Tree to Local Manifest
+        run: |
+          mkdir -p ~/twrp-workspace/.repo/local_manifests
+          cat > ~/twrp-workspace/.repo/local_manifests/tensura.xml << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <manifest>
+            <project
+              name="tensura-devs/device_realme_tensura_recovery"
+              path="${{ env.DEVICE_PATH }}"
+              remote="github"
+              revision="${{ env.DEVICE_TREE_BRANCH }}" />
+          </manifest>
+          EOF
+
+      # ──────────────────────────────────────────
+      # 7. Sync source
+      # ──────────────────────────────────────────
+      - name: Sync Source
+        run: |
+          cd ~/twrp-workspace
+          repo sync \
+            -j$(nproc --all) \
+            --force-sync \
+            --no-clone-bundle \
+            --no-tags \
+            --optimized-fetch \
+            --prune
+
+      # ──────────────────────────────────────────
+      # 8. Build
+      # ──────────────────────────────────────────
+      - name: Build TWRP
+        run: |
+          cd ~/twrp-workspace
+          export ALLOW_MISSING_DEPENDENCIES=true
+          export LC_ALL=C
+          source build/envsetup.sh
+          lunch twrp_${{ env.DEVICE_NAME }}-eng
+          mka ${{ env.BUILD_TARGET }}image -j$(nproc --all)
+
+      # ──────────────────────────────────────────
+      # 9. Cari output file
+      # ──────────────────────────────────────────
+      - name: Locate Output Files
+        run: |
+          cd ~/twrp-workspace
+          OUT_DIR="out/target/product/${{ env.DEVICE_NAME }}"
+          echo "OUT_DIR=$OUT_DIR" >> $GITHUB_ENV
+          
+          # Cari recovery image
+          if [ -f "$OUT_DIR/vendor_boot.img" ]; then
+            echo "RECOVERY_IMG=$OUT_DIR/vendor_boot.img" >> $GITHUB_ENV
+          fi
+          if [ -f "$OUT_DIR/boot.img" ]; then
+            echo "BOOT_IMG=$OUT_DIR/boot.img" >> $GITHUB_ENV
+          fi
+          
+          # Buat nama release
+          BUILD_DATE=$(date +%Y%m%d-%H%M)
+          echo "BUILD_DATE=$BUILD_DATE" >> $GITHUB_ENV
+          echo "RELEASE_NAME=TWRP-${{ env.DEVICE_NAME }}-$BUILD_DATE" >> $GITHUB_ENV
+
+      # ──────────────────────────────────────────
+      # 10. Upload artifact (tersedia di Actions tab)
+      # ──────────────────────────────────────────
+      - name: Upload Recovery Image as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.RELEASE_NAME }}
+          path: |
+            ~/twrp-workspace/${{ env.OUT_DIR }}/recovery.img
+            ~/twrp-workspace/${{ env.OUT_DIR }}/boot.img
+            ~/twrp-workspace/${{ env.OUT_DIR }}/vendor_boot.img
+          if-no-files-found: warn
+          retention-days: 7
+
+      # ──────────────────────────────────────────
+      # 11. (Opsional) Buat GitHub Release otomatis
+      # ──────────────────────────────────────────
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_NAME }}
+          name: "${{ env.RELEASE_NAME }}"
+          body: |
+            ## TWRP Build for ${{ env.DEVICE_NAME }}
+            
+            **Build Date:** ${{ env.BUILD_DATE }}
+            **Branch:** ${{ env.DEVICE_TREE_BRANCH }}
+            **Build Target:** ${{ env.BUILD_TARGET }}
+            
+            ### Cara Flash
+            1. Boot ke fastboot/download mode
+            2. Flash recovery: `fastboot flash recovery recovery.img`
+            3. Reboot ke recovery
+          files: |
+            ~/twrp-workspace/${{ env.OUT_DIR }}/recovery.img
+            ~/twrp-workspace/${{ env.OUT_DIR }}/boot.img
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
