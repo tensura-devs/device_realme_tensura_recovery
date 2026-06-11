@@ -218,6 +218,7 @@ TW_INPUT_BLACKLIST := "nt36672c ilitek7807s synaptics-s3910"
 TW_CUSTOM_CPU_TEMP_PATH := /sys/class/thermal/thermal_zone28/temp
 TW_OVERRIDE_SYSTEM_PROPS := "ro.build.version.sdk"
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+TW_SKIP_ADDITIONAL_FSTAB := true
 
 # Debug
 TARGET_USES_LOGD := true
