@@ -100,7 +100,15 @@ PRODUCT_PACKAGES += \
 
 # Additional binaries & libraries needed for recovery
 TARGET_RECOVERY_DEVICE_MODULES += \
-    libion
+    libion \
+    android.hardware.gatekeeper@1.0 \
+    android.hardware.keymaster@4.1 \
+    libkeymaster4_1support \
+    libkeymaster41 \
+    libteec \
+    android.hardware.boot@1.2-mtkimpl \
+    init.recovery.mt6789.rc \
+    init.recovery.logd.rc
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
