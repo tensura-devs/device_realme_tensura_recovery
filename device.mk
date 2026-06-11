@@ -34,8 +34,9 @@ PRODUCT_PACKAGES += \
 
 # Health Hal
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl \
-    android.hardware.health@2.1-service
+    android.hardware.boot@1.2-mtkimpl \
+    android.hardware.boot@1.2-mtkimpl.recovery \
+    bootctrl
     
 # AB
 AB_OTA_UPDATER := true
@@ -118,6 +119,8 @@ TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster4_1support.so \
     $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service \
     $(TARGET_OUT_VENDOR)/lib64/android.hardware.boot@1.2-mtkimpl.so
+    $(TARGET_OUT_VENDOR)/lib/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so \
+    $(TARGET_OUT_VENDOR)/lib64/hw/android.hardware.boot@1.0-impl-1.2-mtkimpl.so
 
 
 # Vendor ramdisk
