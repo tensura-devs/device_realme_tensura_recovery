@@ -168,6 +168,7 @@ TW_FORCE_KEYMASTER_VER := true
 TW_USE_FSCRYPT_POLICY := 2
 TW_CRYPTO_USE_SYSTEM_VOLD := true
 TW_CRYPTO_SYSTEM_VOLD_MOUNT := vendor
+TW_CRYPTO_SYSTEM_VOLD_SERVICES := keymaster gatekeeperd
 TW_CRYPTO_SYSTEM_VOLD_DEBUG := true  # sementara untuk debug
 
 # FIX: Untuk ADB sideload stabil
