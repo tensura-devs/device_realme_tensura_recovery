@@ -47,5 +47,5 @@ mka vendorbootimage
 ## To use it:
 
 ```
-fastboot flash vendor_boot out/target/product/RMX3630/vendor_boot.img
+fastboot flash vendor_boot vendor_boot.img
 ```
