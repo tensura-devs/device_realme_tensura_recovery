@@ -40,6 +40,8 @@ TARGET_BOARD_PLATFORM := mt6789
 
 # Bootcontrol
 TARGET_RECOVERY_DEVICE_MODULES += \
+    android.hardware.boot@1.0-impl \
+    android.hardware.boot@1.0-service \
     android.hardware.boot@1.2-mtkimpl \
     android.hardware.boot@1.2-mtkimpl.recovery \
     libkeymaster4 \
