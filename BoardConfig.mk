@@ -41,9 +41,18 @@ TARGET_BOARD_PLATFORM := mt6789
 # Bootcontrol
 TARGET_RECOVERY_DEVICE_MODULES += \
     android.hardware.boot@1.2-mtkimpl \
-    android.hardware.boot@1.2-mtkimpl.recovery
+    android.hardware.boot@1.2-mtkimpl.recovery \
+    libkeymaster4 \
+    libkeymaster41 \
+    libpuresoftkeymasterdevice \
+    android.hardware.keymaster@4.0 \
+    android.hardware.keymaster@4.1
+
 RECOVERY_LIBRARY_SOURCE_FILES += \
-    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.boot@1.2-mtkimpl.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so
 
 # Kernel
 TARGET_KERNEL_ARCH := arm64
