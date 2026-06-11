@@ -1,0 +1,2 @@
+# additional.fstab - intentionally minimal
+/dev/block/by-name/metadata    /metadata    ext4    noatime,nosuid,nodev,discard    wait,first_stage_mount
