@@ -39,3 +39,7 @@
 /persist            ext4   /dev/block/by-name/persist                      flags=display="Persist"
 /proinfo            auto   /dev/block/by-name/proinfo                      flags=display="Proinfo"
 /seccfg             auto   /dev/block/by-name/seccfg
+/mnt/vendor/protect_f   ext4   /dev/block/sdc19   flags=display="protect_f";wipeingui
+/mnt/vendor/protect_s   ext4   /dev/block/sdc20   flags=display="protect_s";wipeingui
+/mnt/vendor/nvdata      ext4   /dev/block/sdc10   flags=display="nvdata";wipeingui
+/mnt/vendor/nvcfg       ext4   /dev/block/sdc9    flags=display="nvcfg";wipeingui
