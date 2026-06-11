@@ -112,7 +112,12 @@ TARGET_RECOVERY_DEVICE_MODULES += \
 
 TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libion.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/android.hardware.vibrator-V1-ndk_platform.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libteec.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster41.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/android.hardware.keymaster@4.1.so \
+    $(TARGET_OUT_VENDOR_SHARED_LIBRARIES)/libkeymaster4_1support.so \
+    $(TARGET_OUT_VENDOR)/bin/hw/android.hardware.gatekeeper@1.0-service \
+    $(TARGET_OUT_VENDOR)/lib64/android.hardware.boot@1.2-mtkimpl.so
 
 
 # Vendor ramdisk
