@@ -47,7 +47,7 @@ TARGET_NO_BOOTLOADER := true
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 4
 BOARD_KERNEL_BASE := 0x3fff8000
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2
+BOARD_VENDOR_CMDLINE := bootopt=64S3,32N2,64N2
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_RAMDISK_OFFSET := 0x26f08000
 BOARD_KERNEL_TAGS_OFFSET := 0x07c88000
@@ -79,8 +79,8 @@ BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 TARGET_COPY_OUT_VENDOR := vendor
 BOARD_SUPER_PARTITION_SIZE := 9126805504 # TODO: Fix hardcoded value
 BOARD_SUPER_PARTITION_GROUPS := oplus_dynamic_partitions
-BOARD_OPLUS_DYNAMIC_PARTITIONS_PARTITION_LIST := system system vendor vendor product product system_ext system_ext odm odm my_product my_product my_engineering my_engineering my_company my_company my_carrier my_carrier my_region my_region my_heytap my_heytap my_stock my_stock my_preload my_preload my_bigball my_bigball my_manifest my_manifest
-BOARD_OPLUS_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
+BOARD_MAIN_DYNAMIC_PARTITIONS_PARTITION_LIST := system system vendor vendor product product system_ext system_ext odm odm my_product my_product my_engineering my_engineering my_company my_company my_carrier my_carrier my_region my_region my_heytap my_heytap my_stock my_stock my_preload my_preload my_bigball my_bigball my_manifest my_manifest
+BOARD_MAIN_DYNAMIC_PARTITIONS_SIZE := 9122611200 # TODO: Fix hardcoded value
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6789
@@ -91,6 +91,7 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 BOARD_INCLUDE_RECOVERY_RAMDISK_IN_VENDOR_BOOT := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
 
 # Security patch level
