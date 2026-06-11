@@ -160,9 +160,6 @@ TW_INCLUDE_FBE_METADATA_DECRYPT := true
 TW_FORCE_KEYMASTER_VER := true
 TW_USE_FSCRYPT_POLICY := 2
 
-# FIX: Untuk mencegah FBE dekripsi error
-TARGET_CRYPTFS_HW_PATH := vendor/oplus/cryptfs_hw
-
 # FIX: Untuk ADB sideload stabil
 BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_CHARGER_SHOW_PASSWOED_PROMPT := true
