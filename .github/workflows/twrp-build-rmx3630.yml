@@ -1,0 +1,180 @@
+name: Build TWRP for Realme RMX3630
+
+on:
+  workflow_dispatch:
+    inputs:
+      dirty_clean:
+        description: "Run dirty clean before build?"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+      clone_tree:
+        description: "Clone/refresh device tree before build?"
+        required: true
+        default: "true"
+        type: choice
+        options:
+          - "true"
+          - "false"
+
+jobs:
+  build:
+    name: Build TWRP Recovery
+    runs-on: ubuntu-22.04
+
+    steps:
+      # ──────────────────────────────────────────
+      # 1. Checkout repo
+      # ──────────────────────────────────────────
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ──────────────────────────────────────────
+      # 2. Install build dependencies
+      # ──────────────────────────────────────────
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            git-core gnupg flex bison build-essential zip curl \
+            zlib1g-dev libc6-dev-i386 x11proto-core-dev \
+            libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils \
+            xsltproc unzip fontconfig ccache python3 python3-pip \
+            openjdk-11-jdk
+
+      # ──────────────────────────────────────────
+      # 3. Setup ccache
+      # ──────────────────────────────────────────
+      - name: Setup ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          max-size: 100G
+          key: twrp-rmx3630-${{ github.sha }}
+          restore-keys: twrp-rmx3630-
+
+      # ──────────────────────────────────────────
+      # 4. Configure Git
+      # ──────────────────────────────────────────
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      # ──────────────────────────────────────────
+      # 5. Cache TWRP source
+      # ──────────────────────────────────────────
+      - name: Cache TWRP source
+        uses: actions/cache@v4
+        with:
+          path: ~/twrp-build
+          key: twrp-source-${{ hashFiles('**/twrp_manifest.xml') }}
+          restore-keys: twrp-source-
+
+      # ──────────────────────────────────────────
+      # 6. Dirty clean output (optional)
+      # ──────────────────────────────────────────
+      - name: Dirty clean output
+        if: ${{ github.event.inputs.dirty_clean == 'true' }}
+        run: |
+          echo "Melakukan dirty clean out ..."
+          rm -rf \
+            ~/twrp-build/out/target/product/RMX3630/vendor_boot.img \
+            ~/twrp-build/out/target/product/RMX3630/vendor_ramdisk \
+            ~/twrp-build/out/target/product/RMX3630/root \
+            ~/twrp-build/out/target/product/RMX3630/recovery \
+            ~/twrp-build/out/target/product/RMX3630/ramdisk
+          echo "✅ Dirty clean out successfully"
+
+      # ──────────────────────────────────────────
+      # 7. Clone / refresh device tree (optional)
+      # ──────────────────────────────────────────
+      - name: Clone device tree
+        if: ${{ github.event.inputs.clone_tree == 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.DEVICE_TREE_TOKEN }}
+        working-directory: ~/twrp-build
+        run: |
+          echo "Menghapus source tree lama..."
+          rm -rf device/realme/RMX3630
+          echo "✅ Source Tree deleted successfully"
+
+          echo "Menambahkan source tree baru..."
+          git clone \
+            -b twrp-12.1-twrpdt \
+            "https://${GITHUB_TOKEN}@github.com/tensura-devs/device_realme_tensura_recovery.git" \
+            device/realme/RMX3630
+          echo "✅ Source Tree Added successfully"
+
+      # ──────────────────────────────────────────
+      # 8. Setup build environment & build
+      # ──────────────────────────────────────────
+      - name: Build TWRP vendorbootimage
+        working-directory: ~/twrp-build
+        run: |
+          echo "=========================================="
+          echo "        TWRP BUILD SCRIPT FOR RMX3630     "
+          echo "=========================================="
+
+          # Environment variables
+          export LC_ALL=C
+          export USE_CCACHE=1
+          ccache -M 100G
+          export CCACHE_COMPRESS=1
+          export CCACHE_DIR=/root/.ccache
+          export PARALLEL_JOBS=4
+
+          echo "✅ Environment configured"
+
+          # Init build environment
+          source build/envsetup.sh
+          echo "✅ Build environment initialized"
+
+          # Select lunch target
+          lunch twrp_RMX3630-eng
+          echo "✅ Lunch target: twrp_RMX3630-eng"
+
+          echo "=========================================="
+          echo "🚀 STARTING BUILD PROCESS..."
+          echo "Build target : vendorbootimage"
+          echo "Parallel jobs: 16"
+          echo "Timestamp    : $(date)"
+          echo "=========================================="
+
+          time mka vendorbootimage -j16
+
+          echo "=========================================="
+          echo "✅ VENDOR_BOOT RECOVERY CREATED SUCCESSFULLY!"
+          echo "Build finished at: $(date)"
+          echo "=========================================="
+
+      # ──────────────────────────────────────────
+      # 9. Upload artifact
+      # ──────────────────────────────────────────
+      - name: Upload vendor_boot.img
+        uses: actions/upload-artifact@v4
+        with:
+          name: twrp-vendor_boot-RMX3630-${{ github.run_number }}
+          path: ~/twrp-build/out/target/product/RMX3630/vendor_boot.img
+          retention-days: 7
+          if-no-files-found: error
+
+      # ──────────────────────────────────────────
+      # 10. Create GitHub Release (on tag push)
+      # ──────────────────────────────────────────
+      - name: Create GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ~/twrp-build/out/target/product/RMX3630/vendor_boot.img
+          name: "TWRP RMX3630 - ${{ github.ref_name }}"
+          body: |
+            ## TWRP Recovery for Realme RMX3630
+            - Branch: `twrp-12.1-twrpdt`
+            - Build: `twrp_RMX3630-eng`
+            - Target: `vendorbootimage`
+            - Built at: ${{ github.run_id }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
